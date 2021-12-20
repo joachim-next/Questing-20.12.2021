@@ -1,6 +1,6 @@
 ﻿namespace Crawler
 {
-    public class Inventory
+    public class CraftingInventory
     {
         
     }
