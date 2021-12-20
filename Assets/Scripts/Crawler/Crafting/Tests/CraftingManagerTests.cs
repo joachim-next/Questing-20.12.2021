@@ -34,7 +34,6 @@ namespace Crawler.Crafting.Tests
                 .Returns(false);
                 
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
-
             formationValidator
                 .FindFormations()
                 .Returns(true);
@@ -55,7 +54,6 @@ namespace Crawler.Crafting.Tests
                 .Returns(true);
             
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
-
             formationValidator
                 .FindFormations()
                 .Returns(false);
