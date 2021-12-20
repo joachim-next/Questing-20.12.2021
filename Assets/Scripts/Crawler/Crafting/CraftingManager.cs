@@ -16,14 +16,11 @@
         
         public CraftingResult TryCraft()
         {
-            if (!_craftingInventory.HasItems)
+            var findingResult = _formationFinder.Find(_craftingInventory);
+            if (!findingResult.Success)
                 return CraftingResult.Failed;
 
-            var formations = _formationFinder.Find();
-            if (formations.Length == 0)
-                return CraftingResult.Failed;
-
-            if (!_formationValidator.Validate(formations))
+            if (!_formationValidator.Validate(findingResult.Formations))
                 return CraftingResult.Failed;
             
             return CraftingResult.Success;
