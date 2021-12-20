@@ -13,12 +13,12 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
 
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
-            formationValidator
+            var formationFinder = Substitute.For<ICraftingFormationFinder>();
+            formationFinder
                 .FindFormations()
                 .Returns(true);
             
-            var craftingManager = new CraftingManager(inventory, formationValidator);
+            var craftingManager = new CraftingManager(inventory, formationFinder);
             
             var result = craftingManager.TryCraft();
             
@@ -33,12 +33,12 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(false);
                 
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
-            formationValidator
+            var formationFinder = Substitute.For<ICraftingFormationFinder>();
+            formationFinder
                 .FindFormations()
                 .Returns(true);
             
-            var craftingManager = new CraftingManager(inventory, formationValidator);
+            var craftingManager = new CraftingManager(inventory, formationFinder);
             
             var result = craftingManager.TryCraft();
             
@@ -53,12 +53,12 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
             
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
-            formationValidator
+            var formationFinder = Substitute.For<ICraftingFormationFinder>();
+            formationFinder
                 .FindFormations()
                 .Returns(false);
 
-            var craftingManager = new CraftingManager(inventory, formationValidator);
+            var craftingManager = new CraftingManager(inventory, formationFinder);
             
             var result = craftingManager.TryCraft();
             

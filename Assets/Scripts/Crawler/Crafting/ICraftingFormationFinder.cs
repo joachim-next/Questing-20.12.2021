@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Crafting
 {
-    public interface ICraftingFormationValidator
+    public interface ICraftingFormationFinder
     {
         bool FindFormations();
     }
