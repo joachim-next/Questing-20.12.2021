@@ -8,7 +8,10 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_PrerequisitesMet_When_TryCraft_Then_ReturnsCraftingResultSuccess()
         {
-            var inventory = new CraftingInventory();
+            var inventory = Substitute.For<ICraftingInventory>();
+            inventory
+                .HasItems
+                .Returns(true);
 
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
             formationValidator
@@ -25,7 +28,11 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_CraftingInventoryIsEmpty_When_TryCraft_Then_ReturnsCraftingResultFailed()
         {
-            var inventory = new CraftingInventory();
+            var inventory = Substitute.For<ICraftingInventory>();
+            inventory
+                .HasItems
+                .Returns(false);
+                
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
 
             formationValidator
@@ -42,7 +49,11 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_NoFormationsFound_When_TryCraft_Then_ReturnsCraftingResultFailed()
         {
-            var inventory = new CraftingInventory();
+            var inventory = Substitute.For<ICraftingInventory>();
+            inventory
+                .HasItems
+                .Returns(true);
+            
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
 
             formationValidator

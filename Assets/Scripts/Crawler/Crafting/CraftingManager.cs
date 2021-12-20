@@ -4,7 +4,7 @@
     {
         private readonly ICraftingFormationValidator _formationValidator;
         
-        public CraftingManager(CraftingInventory craftingInventory, ICraftingFormationValidator formationValidator)
+        public CraftingManager(ICraftingInventory craftingInventory, ICraftingFormationValidator formationValidator)
         {
             _formationValidator = formationValidator;
         }
