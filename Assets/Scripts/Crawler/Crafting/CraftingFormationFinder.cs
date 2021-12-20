@@ -45,19 +45,35 @@ namespace Crawler.Crafting
             
             for (int i = 0; i < formations.Length; i++)
             {
-                if(IngredientForFormationExist(formations[i], inventory))
+                if(IngredientsForFormationExist(formations[i], inventory))
                     continue;
+                
                 indices.Add(i);
             }
 
             return indices.ToArray();
         }
 
-        private bool IngredientForFormationExist(CraftingFormation formation, ICraftingInventory inventory)
+        private bool IngredientsForFormationExist(CraftingFormation formation, ICraftingInventory inventory)
         {
-            return formation.Nodes
-                .All(x=> inventory.Nodes
-                    .Any(y => y.IngredientType == x.IngredientType));
+            var formationIngredientTypeToCountMap = formation.Nodes
+                .GroupBy(x => x.IngredientType);
+
+            foreach (var group in formationIngredientTypeToCountMap)
+            {
+                if (!HasEnoughOfIngredient(group.Key, group.Count(), inventory))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool HasEnoughOfIngredient(int ingredientType, int neededCount, ICraftingInventory inventory)
+        {
+            var ownedCount = inventory.Nodes
+                .Count(x => x.IngredientType == ingredientType);
+
+            return ownedCount >= neededCount;
         }
     }
 }
