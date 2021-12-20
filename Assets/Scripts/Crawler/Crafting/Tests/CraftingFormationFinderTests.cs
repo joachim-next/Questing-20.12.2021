@@ -156,21 +156,35 @@ namespace Crawler.Crafting.Tests
             var inventory = new CraftingInventory(ingredients);
 
             var result = formationFinder.Find(inventory);
+            
+            var inventoryIngredientTypeToCountMap = new Dictionary<int, int>();
 
-            var ingredientTypeToCountMap = inventory.Nodes
-                .GroupBy(x => x.IngredientType)
-                .ToDictionary(x => x.Key, 
-                    x => x.Count());
-
-            var formationIngredientToCountMap = result.Formations
-                .Select(x => x.Nodes)
-                .GroupBy(x => x.First().IngredientType, 
-                    x=> x);
-                
-
-            foreach (var group in formationIngredientToCountMap)
+            foreach (var node in inventory.Nodes)
             {
-                Assert.GreaterOrEqual(ingredientTypeToCountMap[group.Key], group.Count());
+                var ingredientType = node.IngredientType;
+                var count = inventory.Nodes
+                    .Count(x => x.IngredientType == ingredientType);
+
+                inventoryIngredientTypeToCountMap[ingredientType] = count;
+            }
+            
+            var formationIngredientTypeToCountMap = new Dictionary<int, int>();
+            
+            foreach (var formation in result.Formations)
+            {
+                foreach (var node in formation.Nodes)
+                {
+                    var ingredientType = node.IngredientType;
+                    var count = formation.Nodes
+                        .Count(x => x.IngredientType == ingredientType);
+                    
+                    formationIngredientTypeToCountMap[ingredientType] = count;
+                }
+            }
+
+            foreach (var group in formationIngredientTypeToCountMap)
+            {   
+                Assert.GreaterOrEqual(inventoryIngredientTypeToCountMap[group.Key], group.Value);
             }
         }
     }
