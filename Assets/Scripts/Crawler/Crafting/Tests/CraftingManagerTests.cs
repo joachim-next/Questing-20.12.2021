@@ -11,6 +11,10 @@ namespace Crawler.Crafting.Tests
             var inventory = new Inventory();
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
 
+            formationValidator
+                .FindFormations()
+                .Returns(true);
+            
             var craftingManager = new CraftingManager(inventory, formationValidator);
             
             var result = craftingManager.TryCraft();
