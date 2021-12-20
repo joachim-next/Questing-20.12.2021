@@ -2,6 +2,6 @@
 {
     public interface ICraftingFormationFinder
     {
-        bool FindFormations();
+        CraftingFormation[] FindFormations();
     }
 }

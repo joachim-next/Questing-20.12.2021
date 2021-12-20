@@ -13,10 +13,12 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
 
+            var formations = new CraftingFormation[1];
+            
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder
                 .FindFormations()
-                .Returns(true);
+                .Returns(formations);
 
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
             formationValidator
@@ -38,10 +40,12 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(false);
                 
+            var formations = new CraftingFormation[1];
+            
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder
                 .FindFormations()
-                .Returns(true);
+                .Returns(formations);
 
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
             formationValidator    
@@ -63,16 +67,45 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
             
+            var formations = new CraftingFormation[0];
+            
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder
                 .FindFormations()
-                .Returns(false);
+                .Returns(formations);
             
             var formationValidator = Substitute.For<ICraftingFormationValidator>();
             formationValidator
                 .Validate(default)
                 .ReturnsForAnyArgs(true);
 
+            var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
+            
+            var result = craftingManager.TryCraft();
+            
+            Assert.AreEqual(CraftingResult.Failed, result);
+        }
+
+        [Test]
+        public void Given_FormationsNotValid_When_TryCraft_Then_ReturnsCraftingResultFailed()
+        {
+            var inventory = Substitute.For<ICraftingInventory>();
+            inventory
+                .HasItems
+                .Returns(true);
+                
+            var formations = new CraftingFormation[1];
+            
+            var formationFinder = Substitute.For<ICraftingFormationFinder>();
+            formationFinder
+                .FindFormations()
+                .Returns(formations);
+
+            var formationValidator = Substitute.For<ICraftingFormationValidator>();
+            formationValidator    
+                .Validate(default)
+                .ReturnsForAnyArgs(false);
+            
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
             var result = craftingManager.TryCraft();
