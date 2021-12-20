@@ -1,3 +1,15 @@
-﻿{
-	"name": "Crawler.Crafting"
+{
+    "name": "Crawler.Crafting",
+    "references": [
+        "GUID:5e54952e274a17d4eb68cbc78168a724"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

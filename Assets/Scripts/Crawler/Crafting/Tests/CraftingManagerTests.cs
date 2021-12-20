@@ -1,5 +1,4 @@
-﻿using Crawler.Crafting;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Crawler.Crafting.Tests
 {
@@ -8,7 +7,9 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_InventoryIsEmpty_When_TryCraft_Then_ReturnsCraftingResultFailed()
         {
-            var craftingManager = new CraftingManager();
+            var inventory = new Inventory();
+            
+            var craftingManager = new CraftingManager(inventory);
             
             var result = craftingManager.TryCraft();
             
