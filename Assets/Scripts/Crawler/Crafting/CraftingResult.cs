@@ -2,6 +2,7 @@
 {
     public enum CraftingResult
     {
-        Failed = 0
+        Failed = 0,
+        Success = 1
     }
 }
