@@ -2,7 +2,7 @@
 {
     public class CraftingManager
     {
-        public CraftingManager(Inventory inventory)
+        public CraftingManager(Inventory inventory, ICraftingFormationValidator formationValidator)
         {
             
         }
