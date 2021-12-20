@@ -13,14 +13,7 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
 
-            var formations = new CraftingFormation[1];
-            var findingResult = Substitute.For<ICraftingFormationFindingResult>();
-            findingResult
-                .Formations
-                .Returns(formations);
-            findingResult
-                .Success
-                .Returns(true);
+            var findingResult = new CraftingFormationFindingResult(true, new CraftingFormation[1]);
             
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder
@@ -47,14 +40,7 @@ namespace Crawler.Crafting.Tests
                 .HasItems
                 .Returns(true);
             
-            var formations = new CraftingFormation[0];
-            var findingResult = Substitute.For<ICraftingFormationFindingResult>();
-            findingResult
-                .Formations
-                .Returns(formations);
-            findingResult
-                .Success
-                .Returns(false);
+            var findingResult = new CraftingFormationFindingResult(false, new CraftingFormation[0]);
             
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder
@@ -80,15 +66,8 @@ namespace Crawler.Crafting.Tests
             inventory
                 .HasItems
                 .Returns(true);
-                
-            var formations = new CraftingFormation[1];
-            var findingResult = Substitute.For<ICraftingFormationFindingResult>();
-            findingResult
-                .Formations
-                .Returns(formations);
-            findingResult
-                .Success
-                .Returns(true);
+
+            var findingResult = new CraftingFormationFindingResult(true, new CraftingFormation[1]);
             
             var formationFinder = Substitute.For<ICraftingFormationFinder>();
             formationFinder

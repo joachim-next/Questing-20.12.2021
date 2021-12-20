@@ -2,6 +2,6 @@
 {
     public interface ICraftingFormationFinder
     {
-        ICraftingFormationFindingResult Find(ICraftingInventory inventory);
+        CraftingFormationFindingResult Find(ICraftingInventory inventory);
     }
 }
