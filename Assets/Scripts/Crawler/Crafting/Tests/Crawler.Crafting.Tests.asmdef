@@ -1,6 +1,8 @@
 {
     "name": "Crawler.Crafting.Tests",
-    "references": [],
+    "references": [
+        "GUID:9c524b4878d4a654cadceb44a92ab673"
+    ],
     "includePlatforms": [
         "Editor"
     ],
