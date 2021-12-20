@@ -5,7 +5,8 @@
         private readonly ICraftingInventory _craftingInventory;
         private readonly ICraftingFormationFinder _formationFinder;
         
-        public CraftingManager(ICraftingInventory craftingInventory, ICraftingFormationFinder formationFinder)
+        public CraftingManager(ICraftingInventory craftingInventory, ICraftingFormationFinder formationFinder,
+            ICraftingFormationValidator formationValidator)
         {
             _craftingInventory = craftingInventory;
             _formationFinder = formationFinder;
