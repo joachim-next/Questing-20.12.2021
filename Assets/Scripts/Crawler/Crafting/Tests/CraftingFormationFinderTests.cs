@@ -8,7 +8,9 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_ValidArgs_When_Find_Then_ReturnsSuccessfulFindingResult()
         {
-            var formationFinder = new CraftingFormationFinder();
+            var formationProvider = Substitute.For<ICraftingFormationProvider>();
+            
+            var formationFinder = new CraftingFormationFinder(formationProvider);
             
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -24,7 +26,9 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_InventoryEmpty_When_Find_Then_ReturnsUnsuccessfulFindingResult()
         {
-            var formationFinder = new CraftingFormationFinder();
+            var formationProvider = Substitute.For<ICraftingFormationProvider>();
+            
+            var formationFinder = new CraftingFormationFinder(formationProvider);
 
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
