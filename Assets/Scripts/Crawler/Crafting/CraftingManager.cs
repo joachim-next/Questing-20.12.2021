@@ -19,7 +19,7 @@
             if (!_craftingInventory.HasItems)
                 return CraftingResult.Failed;
 
-            var formations = _formationFinder.FindFormations();
+            var formations = _formationFinder.Find();
             if (formations.Length == 0)
                 return CraftingResult.Failed;
 
