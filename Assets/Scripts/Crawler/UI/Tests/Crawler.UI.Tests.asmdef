@@ -1,0 +1,20 @@
+{
+    "name": "Crawler.UI.Tests",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Castle.Core.dll",
+        "NSubstitute.dll",
+        "nunit.framework.dll",
+        "System.Threading.Tasks.Extensions.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
