@@ -127,5 +127,32 @@ namespace Crawler.Crafting
 
             return value;
         }
+
+        public void TryCheck(int x, int y)
+        {
+            CraftingFormationNode match = null;
+            int indexOfMatch = -1;
+            for (int i = 0; i < Formation.Nodes.Length; i++)
+            {
+                var node = Formation.Nodes[i];
+
+                if (node.X != x ||
+                    node.Y != y)
+                {
+                    continue;
+                }
+
+                match = node;
+                indexOfMatch = i;
+                break;
+            }
+            
+            if (match == default)
+            {
+                return;
+            }
+
+            CheckedNodes[indexOfMatch] = true;
+        }
     }
 }

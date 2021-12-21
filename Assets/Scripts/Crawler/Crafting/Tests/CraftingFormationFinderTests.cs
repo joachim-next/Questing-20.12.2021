@@ -17,18 +17,18 @@ namespace Crawler.Crafting.Tests
         {
             var firstFormationNodes = new []
             {
-                new CraftingFormationNode(0),
-                new CraftingFormationNode(1)
+                new CraftingFormationNode(0, default, default),
+                new CraftingFormationNode(1, default, default)
             };
             var secondFormationNodes = new []
             {
-                new CraftingFormationNode(1),
-                new CraftingFormationNode(3)
+                new CraftingFormationNode(1, default, default),
+                new CraftingFormationNode(3, default, default)
             };
             var thirdFormationNodes = new []
             {
-                new CraftingFormationNode(2),
-                new CraftingFormationNode(2)
+                new CraftingFormationNode(2, default, default),
+                new CraftingFormationNode(2, default, default)
             };
             var formations = new []
             {
@@ -47,9 +47,9 @@ namespace Crawler.Crafting.Tests
             
             var ingredients = new List<CraftingInventoryNode>
             {
-                new CraftingInventoryNode(0),
-                new CraftingInventoryNode(1),
-                new CraftingInventoryNode(3)
+                new CraftingInventoryNode(0, default, default),
+                new CraftingInventoryNode(1, default, default),
+                new CraftingInventoryNode(3, default, default)
             };
             
             _inventory = new CraftingInventory(ingredients);
