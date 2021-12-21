@@ -15,14 +15,14 @@ namespace Crawler.Crafting.Tests
         {
             _bingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
             
-            var inventoryNodes = new List<CraftingInventoryNode>
+            var inventoryNodes = new []
             {
-                new CraftingInventoryNode(0, default, default),
-                new CraftingInventoryNode(1, default, default),
-                new CraftingInventoryNode(1, default, default),
-                new CraftingInventoryNode(1, default, default),
-                new CraftingInventoryNode(2, default, default),
-                new CraftingInventoryNode(2, default, default),
+                new CraftingInventoryItem(0, default, default),
+                new CraftingInventoryItem(1, default, default),
+                new CraftingInventoryItem(1, default, default),
+                new CraftingInventoryItem(1, default, default),
+                new CraftingInventoryItem(2, default, default),
+                new CraftingInventoryItem(2, default, default),
             };
             _inventory = new CraftingInventory(inventoryNodes);
             
@@ -55,7 +55,7 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_EmptyCraftingInventory_When_Create_Then_ReturnsEmpty()
         {
-            var emptyInventoryNodes = new List<CraftingInventoryNode>();
+            var emptyInventoryNodes = new CraftingInventoryItem[0];
             var emptyInventory = new CraftingInventory(emptyInventoryNodes);
             
             var bingoForms = _bingoFormFactory.Create(emptyInventory, _formations);
@@ -106,14 +106,14 @@ namespace Crawler.Crafting.Tests
             Assert.That(actualBingoForms.All(x => x == null));
         }
 
-        private CraftingInventoryNodeBingoForm[] CreateBingoForms(CraftingInventoryNode node, 
+        private CraftingInventoryNodeBingoForm[] CreateBingoForms(CraftingInventoryItem item, 
             CraftingFormation[] formations)
         {
             var forms = new List<CraftingInventoryNodeBingoForm>();
             
             foreach (var formation in formations)
             {
-                var bingoForm = new CraftingInventoryNodeBingoForm(node, formation);
+                var bingoForm = new CraftingInventoryNodeBingoForm(item, formation);
                 forms.Add(bingoForm);
             }
 

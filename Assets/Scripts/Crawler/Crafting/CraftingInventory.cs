@@ -4,10 +4,10 @@ namespace Crawler.Crafting
 {
     public class CraftingInventory : ICraftingInventory
     {
-        public bool HasItems => Nodes.Count != 0; 
-        public List<CraftingInventoryNode> Nodes { get; }
+        public bool HasItems => Nodes.Length != 0; 
+        public CraftingInventoryItem[] Nodes { get; }
         
-        public CraftingInventory(List<CraftingInventoryNode> nodes)
+        public CraftingInventory(CraftingInventoryItem[] nodes)
         {
             Nodes = nodes;
         }

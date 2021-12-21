@@ -29,7 +29,7 @@ namespace Crawler.Crafting
                 .ToArray();
         }
 
-        private CraftingInventoryNodeBingoForm[] CreateForms(CraftingInventoryNode node, CraftingFormation[] formations)
+        private CraftingInventoryNodeBingoForm[] CreateForms(CraftingInventoryItem item, CraftingFormation[] formations)
         {
             var forms = new CraftingInventoryNodeBingoForm[formations.Length];
 
@@ -37,7 +37,7 @@ namespace Crawler.Crafting
             {
                 var formation = formations[i];
                 
-                var form = new CraftingInventoryNodeBingoForm(node, formation);
+                var form = new CraftingInventoryNodeBingoForm(item, formation);
                 forms[i] = form;
             }
 

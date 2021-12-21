@@ -20,11 +20,11 @@ namespace Crawler.Crafting.Tests
         [SetUp]
         public void SetUp()
         {
-            var inventoryNodes = new List<CraftingInventoryNode>
+            var inventoryNodes = new []
             {
-                new CraftingInventoryNode(0, 0, 0),
-                new CraftingInventoryNode(1, 0, 1),
-                new CraftingInventoryNode(3, 0, 2)
+                new CraftingInventoryItem(0, 0, 0),
+                new CraftingInventoryItem(1, 0, 1),
+                new CraftingInventoryItem(3, 0, 2)
             };
             
             _inventory = new CraftingInventory(inventoryNodes);
@@ -103,7 +103,7 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_InventoryEmpty_When_Find_Then_ReturnsUnsuccessfulFindingResult()
         {
-            var emptyInventory = new CraftingInventory(new List<CraftingInventoryNode>());
+            var emptyInventory = new CraftingInventory(new CraftingInventoryItem[0]);
 
             var result = _formationFinder.Find(emptyInventory);
             

@@ -37,11 +37,11 @@ namespace Crawler.Crafting.Tests
                 new CraftingFormation(thirdFormationNodes)
             };
             
-            var inventoryNodes = new List<CraftingInventoryNode>
+            var inventoryNodes = new []
             {
-                new CraftingInventoryNode(0, 0, 0),
-                new CraftingInventoryNode(1, 0, 1),
-                new CraftingInventoryNode(3, 0, 2)
+                new CraftingInventoryItem(0, 0, 0),
+                new CraftingInventoryItem(1, 0, 1),
+                new CraftingInventoryItem(3, 0, 2)
             };
             
             _inventory = new CraftingInventory(inventoryNodes);

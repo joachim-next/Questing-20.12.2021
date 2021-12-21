@@ -2,13 +2,13 @@ namespace Crawler.Crafting
 {
     public class CraftingInventoryNodeBingoForm
     {
-        public CraftingInventoryNode Node { get; }
+        public CraftingInventoryItem Item { get; }
         public CraftingFormation Formation { get; }
         public bool[] CheckedNodes { get; }
 
-        public CraftingInventoryNodeBingoForm(CraftingInventoryNode node, CraftingFormation formation)
+        public CraftingInventoryNodeBingoForm(CraftingInventoryItem item, CraftingFormation formation)
         {
-            Node = node;
+            Item = item;
             Formation = formation;
             CheckedNodes = new bool[formation.Nodes.Length];
         }
@@ -22,7 +22,7 @@ namespace Crawler.Crafting
 
             var target = (CraftingInventoryNodeBingoForm) obj;
 
-            if (!NodeEquals(target.Node))
+            if (!NodeEquals(target.Item))
             {
                 return false;
             }
@@ -40,9 +40,9 @@ namespace Crawler.Crafting
             return true;
         }
 
-        private bool NodeEquals(CraftingInventoryNode target)
+        private bool NodeEquals(CraftingInventoryItem target)
         {
-            return target != null && target.IngredientType == Node.IngredientType;
+            return target != null && target.IngredientType == Item.IngredientType;
         }
 
         private bool FormationEquals(CraftingFormation target)
@@ -103,7 +103,7 @@ namespace Crawler.Crafting
 
         private int NodeGetHashCode()
         {
-            return Node.IngredientType;
+            return Item.IngredientType;
         }
 
         private int FormationGetHashCode()
@@ -136,8 +136,8 @@ namespace Crawler.Crafting
             {
                 var formationNode = Formation.Nodes[i];
 
-                var normalizedX = Node.X + formationNode.RelativeX;
-                var normalizedY = Node.Y + formationNode.RelativeY;
+                var normalizedX = Item.X + formationNode.RelativeX;
+                var normalizedY = Item.Y + formationNode.RelativeY;
                 
                 if (normalizedX != x ||
                     normalizedY != y)

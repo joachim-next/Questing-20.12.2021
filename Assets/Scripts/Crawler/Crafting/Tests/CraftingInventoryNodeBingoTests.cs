@@ -11,10 +11,10 @@ namespace Crawler.Crafting.Tests
         {
             var craftingInventoryNodeBingo = new CraftingInventoryNodeBingo();
             
-            var inventoryNodes = new List<CraftingInventoryNode>()
+            var inventoryNodes = new []
             {    
-                new CraftingInventoryNode(0, 0, 0),
-                new CraftingInventoryNode(0, 0, 1)
+                new CraftingInventoryItem(0, 0, 0),
+                new CraftingInventoryItem(0, 0, 1)
             };
             var inventory = new CraftingInventory(inventoryNodes);
             
