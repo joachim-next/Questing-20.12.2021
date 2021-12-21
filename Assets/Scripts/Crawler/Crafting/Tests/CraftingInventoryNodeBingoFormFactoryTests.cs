@@ -61,5 +61,15 @@ namespace Crawler.Crafting.Tests
             
             Assert.IsEmpty(bingoForms);
         }
+
+        [Test]
+        public void Given_EmptyFormations_When_Create_Then_ReturnsEmpty()
+        {
+            var emptyFormations = new CraftingFormation[0];
+
+            var bingoForms = _bingoFormFactory.Create(_inventory, emptyFormations);
+            
+            Assert.IsEmpty(bingoForms);
+        }
     }
 }
