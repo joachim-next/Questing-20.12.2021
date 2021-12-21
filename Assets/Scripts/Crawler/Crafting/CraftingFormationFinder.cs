@@ -7,12 +7,14 @@ namespace Crawler.Crafting
     {
         private readonly ICraftingFormationProvider _formationProvider;
         private readonly ICraftingInventoryNodeBingoFormFactory _bingoFormFactory;
+        private readonly ICraftingInventoryNodeBingo _inventoryNodeBingo;
 
         public CraftingFormationFinder(ICraftingFormationProvider formationProvider, 
-            ICraftingInventoryNodeBingoFormFactory bingoFormFactory)
+            ICraftingInventoryNodeBingoFormFactory bingoFormFactory, ICraftingInventoryNodeBingo inventoryNodeBingo)
         {
             _formationProvider = formationProvider;
             _bingoFormFactory = bingoFormFactory;
+            _inventoryNodeBingo = inventoryNodeBingo;
         }
         
         // 1. Clear formations you don't have items for
@@ -32,8 +34,10 @@ namespace Crawler.Crafting
             formations = RemoveFormationsWithNotOwnedIngredients(formations, inventory);
 
             var bingoForms = _bingoFormFactory.Create(inventory, formations);
+
+            var bingoResults = _inventoryNodeBingo.Execute(bingoForms, inventory);
             
-            return new CraftingFormationFindingResult(true, formations);
+            return new CraftingFormationFindingResult(true, bingoResults.Formations);
         }
 
         private CraftingFormation[] RemoveFormationsWithNotOwnedIngredients(CraftingFormation[] formations, 

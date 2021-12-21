@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Crawler.Crafting
 {
-    public class CraftingInventoryNodeBingo
+    public class CraftingInventoryNodeBingo : ICraftingInventoryNodeBingo
     {
         public CraftingInventoryBingoResult Execute(CraftingInventoryNodeBingoForm[] forms,
             ICraftingInventory inventory)
