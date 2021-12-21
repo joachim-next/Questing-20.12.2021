@@ -3,14 +3,14 @@ namespace Crawler.Crafting
     public class CraftingFormationNode
     {
         public int IngredientType { get; }
-        public int X { get; }
-        public int Y { get; }
+        public int RelativeX { get; }
+        public int RelativeY { get; }
 
-        public CraftingFormationNode(int ingredientType, int x, int y)
+        public CraftingFormationNode(int ingredientType, int relativeX, int relativeY)
         {
             IngredientType = ingredientType;
-            X = x;
-            Y = y;
+            RelativeX = relativeX;
+            RelativeY = relativeY;
         }
     }
 }

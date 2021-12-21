@@ -134,15 +134,18 @@ namespace Crawler.Crafting
             int indexOfMatch = -1;
             for (int i = 0; i < Formation.Nodes.Length; i++)
             {
-                var node = Formation.Nodes[i];
+                var formationNode = Formation.Nodes[i];
 
-                if (node.X != x ||
-                    node.Y != y)
+                var normalizedX = Node.X + formationNode.RelativeX;
+                var normalizedY = Node.Y + formationNode.RelativeY;
+                
+                if (normalizedX != x ||
+                    normalizedY != y)
                 {
                     continue;
                 }
 
-                match = node;
+                match = formationNode;
                 indexOfMatch = i;
                 break;
             }
