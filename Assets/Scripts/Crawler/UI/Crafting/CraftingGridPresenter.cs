@@ -2,7 +2,7 @@ using Crawler.Crafting;
 
 namespace Crawler.UI.Crafting
 {
-    public class CraftingGridPresenter
+    public class CraftingGridPresenter : ICraftingGridPresenter
     {
         private readonly ICraftingGridView _view;
         private readonly ICraftingInventory _inventory;

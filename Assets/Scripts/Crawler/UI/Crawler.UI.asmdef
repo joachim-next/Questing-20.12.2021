@@ -1,0 +1,15 @@
+{
+    "name": "Crawler.UI",
+    "references": [
+        "GUID:96bffcae5fbc8534f9992bc54a9b7617"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
