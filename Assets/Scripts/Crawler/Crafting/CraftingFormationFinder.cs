@@ -20,13 +20,6 @@ namespace Crawler.Crafting
             _inventoryNodeBingo = inventoryNodeBingo;
         }
         
-        // 1. Clear formations you don't have items for
-        //    - Any ingredient missing
-        //    - Too little of any ingredient
-        // 2. Create bingo-forms for each possible formation from each node
-        // 3. Do bingo
-        // 4. Clear every formation that didn't get full bingo
-        // 5. Return remaining.
         public CraftingFormationFindingResult Find(ICraftingInventory inventory)
         {
             if(!inventory.HasItems)
