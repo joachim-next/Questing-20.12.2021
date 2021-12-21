@@ -4,7 +4,7 @@ using Crawler.Crafting;
 
 namespace Crawler.UI.Crafting
 {
-    public class CraftingInventoryViewModelConverter
+    public class CraftingInventoryViewModelConverter : ICraftingInventoryItemViewModelConverter
     {
         public CraftingInventoryItemViewModel[] Convert(CraftingInventoryItem[] models)
         {

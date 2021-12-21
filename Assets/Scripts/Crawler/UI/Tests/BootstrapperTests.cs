@@ -24,5 +24,16 @@ namespace Crawler.UI.Tests
                 .Received()
                 .Present();
         }
+
+        [Test]
+        public void When_Awake_Then_CraftingGridPresenterToIocContainer()
+        {
+            var bootstrapper = new GameObject("Bootstrapper")
+                .AddComponent<Bootstrapper>();
+            
+            bootstrapper.Awake();
+            
+            Assert.DoesNotThrow(()=> IocContainer.GetSingleton<ICraftingGridPresenter>());
+        }
     }
 }

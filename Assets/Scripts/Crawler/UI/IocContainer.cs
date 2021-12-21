@@ -18,6 +18,11 @@ namespace DefaultNamespace
         {
             var type = typeof(T);
 
+            if (!_instances.ContainsKey(type))
+            {
+                throw new InvalidOperationException($"Instance of {type} hasn't been registered.");
+            }
+            
             return (T) _instances[type];
         }
     }
