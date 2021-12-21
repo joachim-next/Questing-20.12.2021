@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Crawler.Crafting.Tests
@@ -70,6 +71,53 @@ namespace Crawler.Crafting.Tests
             var bingoForms = _bingoFormFactory.Create(_inventory, emptyFormations);
             
             Assert.IsEmpty(bingoForms);
+        }
+
+        [Test]
+        public void Given_ValidArgs_When_Create_Then_ReturnsBingoForms()
+        {
+            var bingoForms = _bingoFormFactory.Create(_inventory, _formations);
+            
+            AssertCorrectFormsCreated(bingoForms, _inventory, _formations);
+        }
+
+        private void AssertCorrectFormsCreated(CraftingInventoryNodeBingoForm[] actualBingoForms, 
+            CraftingInventory inventory, CraftingFormation[] formations)
+        {
+            foreach (var node in inventory.Nodes)
+            {
+                var bingoForms = CreateBingoForms(node, formations);
+
+                foreach (var form in bingoForms)
+                {
+                    for (int i = 0; i < actualBingoForms.Length; i++)
+                    {
+                        if (actualBingoForms[i] == null ||
+                            !actualBingoForms[i].Equals(form))
+                        {
+                            continue;
+                        }
+
+                        actualBingoForms[i] = null;
+                    }
+                }
+            }
+
+            Assert.That(actualBingoForms.All(x => x == null));
+        }
+
+        private CraftingInventoryNodeBingoForm[] CreateBingoForms(CraftingInventoryNode node, 
+            CraftingFormation[] formations)
+        {
+            var forms = new List<CraftingInventoryNodeBingoForm>();
+            
+            foreach (var formation in formations)
+            {
+                var bingoForm = new CraftingInventoryNodeBingoForm(node, formation);
+                forms.Add(bingoForm);
+            }
+
+            return forms.ToArray();
         }
     }
 }
