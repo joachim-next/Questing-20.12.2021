@@ -26,5 +26,15 @@ namespace Crawler.UI.Crafting.Tests
         {
             Assert.Throws<ArgumentNullException>(() => _converter.Convert(null));
         }
+
+        [Test]
+        public void Given_ValidArgs_When_Convert_Then_ReturnsSameAmountOfViewModelsAsModels()
+        {
+            var models = new CraftingInventoryItem[3];
+            
+            var viewModels = _converter.Convert(models);
+            
+            Assert.AreEqual(models.Length, viewModels.Length);
+        }
     }
 }

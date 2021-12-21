@@ -16,7 +16,8 @@ namespace Crawler.UI.Crafting
             {
                 throw new ArgumentException($"Argument {nameof(models)} can't be empty.");
             }
-            return new CraftingInventoryItemViewModel[0];
+            
+            return new CraftingInventoryItemViewModel[models.Length];
         }
     }
 }
