@@ -1,6 +1,6 @@
 using Crawler.Crafting;
 
-namespace Crawler.UI.Crafting.Tests
+namespace Crawler.UI.Crafting
 {
     public interface ICraftingInventoryItemViewModelConverter
     {

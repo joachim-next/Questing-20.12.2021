@@ -24,7 +24,9 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryNodes);
 
-            var presenter = new CraftingGridPresenter(_gridView, inventory);
+            var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
+            
+            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
 
             presenter.Present();
             
@@ -38,6 +40,28 @@ namespace Crawler.UI.Crafting.Tests
         private CraftingInventoryItemViewModel[] ConvertToViewModels(CraftingInventoryItem[] nodes)
         {
             return new CraftingInventoryItemViewModel[0];
+        }
+
+        [Test]
+        public void When_PopulateGrid_Then_CraftingInventoryItemViewModelConverterConvertCalled()
+        {
+            var models = new[]
+            {
+                new CraftingInventoryItem(0, 1, 1),
+                new CraftingInventoryItem(100, 10, 2),
+                new CraftingInventoryItem(-1, -100, 1000),
+            };
+            var inventory = new CraftingInventory(models);
+
+            var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
+            
+            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
+            
+            presenter.Present();
+            
+            viewModelConverter
+                .Received()
+                .Convert(models);
         }
     }
 }

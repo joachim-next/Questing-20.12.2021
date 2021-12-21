@@ -6,22 +6,20 @@ namespace Crawler.UI.Crafting
     {
         private readonly ICraftingGridView _view;
         private readonly ICraftingInventory _inventory;
+        private readonly ICraftingInventoryItemViewModelConverter _viewModelConverter;
         
-        public CraftingGridPresenter(ICraftingGridView view, ICraftingInventory inventory)
+        public CraftingGridPresenter(ICraftingGridView view, ICraftingInventory inventory, 
+            ICraftingInventoryItemViewModelConverter viewModelConverter)
         {
             _view = view;
             _inventory = inventory;
+            _viewModelConverter = viewModelConverter;
         }
         public void Present()
         {
-            var viewModels = ConvertToViewModels(_inventory.Nodes);
+            var viewModels = _viewModelConverter.Convert(_inventory.Nodes);
             
             _view.SpawnItems(viewModels);
-        }
-
-        private CraftingInventoryItemViewModel[] ConvertToViewModels(CraftingInventoryItem[] models)
-        {
-            return new CraftingInventoryItemViewModel[0];
         }
     }
 }
