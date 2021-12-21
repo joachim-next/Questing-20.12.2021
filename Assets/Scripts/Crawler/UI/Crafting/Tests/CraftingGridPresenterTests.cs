@@ -17,20 +17,23 @@ namespace Crawler.UI.Crafting.Tests
         [Test]
         public void When_PopulateGrid_Then_CraftingGridViewSpawnItemsCalled()
         {
-            var inventoryNodes = new[]
+            var models = new[]
             {
                 new CraftingInventoryItem(0, 1, 0),
                 new CraftingInventoryItem(1, 2, 0)
             };
-            var inventory = new CraftingInventory(inventoryNodes);
+            var inventory = new CraftingInventory(models);
+
+            var viewItems = ConvertToViewModels(models);
 
             var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
+            viewModelConverter
+                .Convert(models)
+                .Returns(viewItems);
             
             var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
 
             presenter.Present();
-            
-            var viewItems = ConvertToViewModels(inventoryNodes);
             
             _gridView
                 .Received()
