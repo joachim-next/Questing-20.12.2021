@@ -54,7 +54,10 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_EmptyCraftingInventory_When_Create_Then_ReturnsEmpty()
         {
-            var bingoForms = _bingoFormFactory.Create(_inventory, _formations);
+            var emptyInventoryNodes = new List<CraftingInventoryNode>();
+            var emptyInventory = new CraftingInventory(emptyInventoryNodes);
+            
+            var bingoForms = _bingoFormFactory.Create(emptyInventory, _formations);
             
             Assert.IsEmpty(bingoForms);
         }
