@@ -100,53 +100,6 @@ namespace Crawler.Crafting.Tests
         }
 
         [Test]
-        public void Given_AnyIngredientMissing_When_Find_ReturnsFormationsThatDontNeedTheIngredients()
-        {
-            var result = _formationFinder.Find(_inventory);
-            
-            Assert.That(result.Formations
-                .All(y => y.Nodes
-                    .All(z => _inventory.Nodes
-                        .Any(i => i.IngredientType == z.IngredientType))));
-        }
-
-        [Test]
-        public void Given_TooLittleIngredientsOwned_When_Find_Then_ReturnsFormationsWithOnlyOwnedIngredients()
-        {
-            var result = _formationFinder.Find(_inventory);
-            
-            var inventoryIngredientTypeToCountMap = new Dictionary<int, int>();
-
-            foreach (var node in _inventory.Nodes)
-            {
-                var ingredientType = node.IngredientType;
-                var count = _inventory.Nodes
-                    .Count(x => x.IngredientType == ingredientType);
-
-                inventoryIngredientTypeToCountMap[ingredientType] = count;
-            }
-            
-            var formationIngredientTypeToCountMap = new Dictionary<int, int>();
-            
-            foreach (var formation in result.Formations)
-            {
-                foreach (var node in formation.Nodes)
-                {
-                    var ingredientType = node.IngredientType;
-                    var count = formation.Nodes
-                        .Count(x => x.IngredientType == ingredientType);
-                    
-                    formationIngredientTypeToCountMap[ingredientType] = count;
-                }
-            }
-
-            foreach (var group in formationIngredientTypeToCountMap)
-            {   
-                Assert.GreaterOrEqual(inventoryIngredientTypeToCountMap[group.Key], group.Value);
-            }
-        }
-
-        [Test]
         public void Given_ValidArgs_When_Find_Then_ICraftingInventoryNodeBingoFormFactoryCreateCalled()
         {
             _formationFinder.Find(_inventory);
