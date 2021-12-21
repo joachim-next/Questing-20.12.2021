@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Crawler.Crafting;
 
 namespace Crawler.UI.Crafting
@@ -16,8 +17,10 @@ namespace Crawler.UI.Crafting
             {
                 throw new ArgumentException($"Argument {nameof(models)} can't be empty.");
             }
-            
-            return new CraftingInventoryItemViewModel[models.Length];
+
+            return models
+                .Select(x => new CraftingInventoryItemViewModel(x.IngredientType, x.X, x.Y))
+                .ToArray();
         }
     }
 }
