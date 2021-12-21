@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Crawler.Crafting
 {
-    public class CraftingInventoryNodeBingoFormFactory
+    public class CraftingInventoryNodeBingoFormFactory : ICraftingInventoryNodeBingoFormFactory
     {
-        public CraftingInventoryNodeBingoForm[] Create(CraftingInventory inventory, CraftingFormation[] formations)
+        public CraftingInventoryNodeBingoForm[] Create(ICraftingInventory inventory, CraftingFormation[] formations)
         {
             var bingoForms = new List<CraftingInventoryNodeBingoForm>();
 
