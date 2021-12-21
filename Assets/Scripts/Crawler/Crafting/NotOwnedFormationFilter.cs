@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Crawler.Crafting
 {
-    public class NotOwnedFormationFilter
+    public class NotOwnedFormationFilter : ICraftingFormationFilter
     {
-        public CraftingFormation[] Filter(CraftingFormation[] formations, 
+        public CraftingFormation[] Execute(CraftingFormation[] formations, 
             ICraftingInventory inventory)
         {
             var redundantFormationIndices = IndicesOfFormationsWithNotOwnedIngredients(formations, inventory);

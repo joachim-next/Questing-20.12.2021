@@ -50,7 +50,7 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_ValidArgs_When_Filter_Then_ReturnsFormationsWithOwnedIngredients()
         {
-            var filteredFormations = _formationFilter.Filter(_formations, _inventory);
+            var filteredFormations = _formationFilter.Execute(_formations, _inventory);
             
             var inventoryIngredientTypeToCountMap = new Dictionary<int, int>();
 
@@ -86,7 +86,7 @@ namespace Crawler.Crafting.Tests
         [Test]
         public void Given_AnyIngredientMissing_When_Find_ReturnsFormationsThatDontNeedTheIngredients()
         {
-            var filteredFormations = _formationFilter.Filter(_formations, _inventory);
+            var filteredFormations = _formationFilter.Execute(_formations, _inventory);
             
             Assert.That(filteredFormations
                 .All(y => y.Nodes
