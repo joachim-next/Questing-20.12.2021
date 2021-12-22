@@ -5,16 +5,34 @@ namespace Crawler.UI.Crafting.Tests
 {
     public class CraftingViewManagerTests
     {
+        private ICraftingGridPresenter _gridPresenter;
+        private ICraftingResultPresenter _resultPresenter;
+        private CraftingViewManager _manager;
+        
+        [SetUp]
+        public void Setup()
+        {
+            _gridPresenter = Substitute.For<ICraftingGridPresenter>();
+            _resultPresenter = Substitute.For<ICraftingResultPresenter>();
+            _manager = new CraftingViewManager(_gridPresenter, _resultPresenter);
+        }
+        
         [Test]
         public void When_Start_Then_ICraftingGridPresenterPresentCalled()
-        {
-            var gridPresenter = Substitute.For<ICraftingGridPresenter>();
+        {   
+            _manager.Start();
             
-            var manager = new CraftingViewManager(gridPresenter);
+            _gridPresenter
+                .Received()
+                .Present();
+        }
+
+        [Test]
+        public void When_Start_Then_ICraftingResultPresenterPresentCalled()
+        {   
+            _manager.Start();
             
-            manager.Start();
-            
-            gridPresenter
+            _resultPresenter
                 .Received()
                 .Present();
         }
