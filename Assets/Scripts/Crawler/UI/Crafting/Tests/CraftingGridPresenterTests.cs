@@ -84,7 +84,7 @@ namespace Crawler.UI.Crafting.Tests
             
             _gridView
                 .Received()
-                .Initialize(Arg.Any<int>(), Arg.Any<int>());
+                .Initialize(5, 6);
         }
     }
 }

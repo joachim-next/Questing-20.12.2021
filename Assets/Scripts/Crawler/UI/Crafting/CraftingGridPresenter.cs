@@ -19,7 +19,7 @@ namespace Crawler.UI.Crafting
         {
             var viewModels = _viewModelConverter.Convert(_inventory.Nodes);
 
-            _view.Initialize(0, 0);
+            _view.Initialize(5, 6);
 
             _view.SpawnItems(viewModels);
         }
