@@ -7,11 +7,13 @@ namespace Crawler.UI.Crafting.Tests
     public class CraftingGridPresenterTests
     {
         private ICraftingGridView _gridView;
+        private ICraftingResultView _resultView;
         
         [SetUp]
         public void Setup()
         {
             _gridView = Substitute.For<ICraftingGridView>();
+            _resultView = Substitute.For<ICraftingResultView>();
         }
         
         [Test]
@@ -31,7 +33,7 @@ namespace Crawler.UI.Crafting.Tests
                 .Convert(models)
                 .Returns(viewItems);
             
-            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             presenter.Present();
             
@@ -58,7 +60,7 @@ namespace Crawler.UI.Crafting.Tests
 
             var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
             
-            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
             
             presenter.Present();
             
@@ -78,13 +80,34 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryItems);
             
-            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             presenter.Present();
             
             _gridView
                 .Received()
                 .Initialize(5, 6);
+        }
+        
+        [Test]
+        public void When_Present_Then_ICraftingResultViewShowResult()
+        {
+            var viewModelConverter = new CraftingInventoryViewModelConverter();
+            
+            var inventoryItems = new[]
+            {
+                new CraftingInventoryItem(0, 2, 0),
+                new CraftingInventoryItem(1, 2, 1)
+            };
+            var inventory = new CraftingInventory(inventoryItems);
+
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
+
+            presenter.Present();
+            
+            _resultView
+                .Received()
+                .ShowResult(inventory);
         }
     }
 }

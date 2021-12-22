@@ -8,6 +8,8 @@ namespace Crawler.UI.Crafting
     {
         [SerializeField]
         private CraftingGridView _gridView;
+        [SerializeField]
+        private CraftingResultView _resultView;
         
         private ICraftingGridPresenter _gridPresenter;
      
@@ -27,7 +29,7 @@ namespace Crawler.UI.Crafting
             var craftingInventory = IocContainer.GetSingleton<ICraftingInventory>();
             var viewModelConverter = new CraftingInventoryViewModelConverter();
             
-            return new CraftingGridPresenter(_gridView, craftingInventory, viewModelConverter);
+            return new CraftingGridPresenter(_gridView, _resultView, craftingInventory, viewModelConverter);
         }
         
         public void Start()
