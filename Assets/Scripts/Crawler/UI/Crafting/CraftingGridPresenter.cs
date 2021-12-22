@@ -33,6 +33,7 @@ namespace Crawler.UI.Crafting
             _resultView.ShowResult(inventory);
         }
 
+        // TODO: This needs to be tested.
         private void OnViewModelMoved((int x, int y) start, (int x, int y) target)
         {
             var inventory = IocContainer.GetSingleton<ICraftingInventory>();
