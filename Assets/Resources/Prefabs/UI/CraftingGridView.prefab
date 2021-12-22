@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4520b287ca164cf2b3e804672d6b9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemViewPrefab: {fileID: 2488353734724198298, guid: 239f4d5b5a6c4254188baff89efa294d,
+    type: 3}
 --- !u!114 &3386922061195132272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,5 +73,5 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
   m_Spacing: {x: 10, y: 10}
-  m_Constraint: 2
+  m_Constraint: 1
   m_ConstraintCount: 5

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8116370072629364731}
   - component: {fileID: 1973583077330915244}
+  - component: {fileID: 2488353734724198298}
   - component: {fileID: 1605797171304498169}
   m_Layer: 5
   m_Name: CraftingInventoryItemView
@@ -45,6 +46,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3155629528740194848}
   m_CullTransparentMesh: 0
+--- !u!114 &2488353734724198298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155629528740194848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee8e048f25c44409b10c2b17cf3e5d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1605797171304498169
 MonoBehaviour:
   m_ObjectHideFlags: 0
