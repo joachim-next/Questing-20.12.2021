@@ -16,8 +16,8 @@ namespace Crawler.UI.Crafting
 
             var result = formationFinder.Find(inventory);
 
-            _resultStateText.text = result.Success ? "Item ready to be crafted" : "Nothing to craft";
-            _resultStateText.color = result.Success ? Color.green : Color.red;
+            _resultStateText.text = result.Formations.Length != 0 ? "Item ready to be crafted" : "Nothing to craft";
+            _resultStateText.color = result.Formations.Length != 0 ? Color.green : Color.red;
         }
     }
 }

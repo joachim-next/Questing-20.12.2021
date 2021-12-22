@@ -9,8 +9,8 @@ namespace Crawler.Crafting
                 new CraftingFormationNode(2, 0, 0),
                 new CraftingFormationNode(2, 1, 0),
                 new CraftingFormationNode(2, 2, 0),
-                new CraftingFormationNode(2, 1, -1),
-                new CraftingFormationNode(2, 1, -2)
+                new CraftingFormationNode(1, 1, -1),
+                new CraftingFormationNode(1, 1, -2)
             };
             
             return new[]
