@@ -1,12 +1,17 @@
 using UnityEngine;
+using TMPro;
 
 namespace Crawler.UI.Crafting
 {
     public class CraftingInventoryItemView : MonoBehaviour
     {
+        [SerializeField] 
+        private TextMeshProUGUI _ingredientTypeText;
+            
+
         public void Inject(CraftingInventoryItemViewModel viewModel)
         {
-            Debug.Log("ViewModel injected!");
+            _ingredientTypeText.text = viewModel.IngredientType.ToString();
         }
     }
 }

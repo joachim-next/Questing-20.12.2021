@@ -2,7 +2,8 @@
     "name": "Crawler.UI.Crafting",
     "references": [
         "GUID:9c524b4878d4a654cadceb44a92ab673",
-        "GUID:cb7e21783aa2f244597ef7af9b6c04db"
+        "GUID:cb7e21783aa2f244597ef7af9b6c04db",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
