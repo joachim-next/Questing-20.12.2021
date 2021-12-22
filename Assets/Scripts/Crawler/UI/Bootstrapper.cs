@@ -10,6 +10,9 @@ namespace DefaultNamespace
         {
             var craftingInventory = GetCraftingInventory();
             IocContainer.RegisterSingleton(craftingInventory);
+
+            var craftingFormationFinder = GetCraftingFormationFinder();
+            IocContainer.RegisterSingleton(craftingFormationFinder);
         }
 
         private ICraftingInventory GetCraftingInventory()
@@ -24,6 +27,16 @@ namespace DefaultNamespace
             };
             
             return new CraftingInventory(craftingInventoryItems);
+        }
+
+        private ICraftingFormationFinder GetCraftingFormationFinder()
+        {
+            var formationProvider = new HardCodedFormationProvider();
+            var formationFilter = new NotOwnedFormationFilter();
+            var nodeBingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
+            var nodeBingo = new CraftingInventoryNodeBingo();
+
+            return new CraftingFormationFinder(formationProvider, formationFilter, nodeBingoFormFactory, nodeBingo);
         }
         
         public void Start()
