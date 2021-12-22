@@ -17,7 +17,7 @@ namespace Crawler.UI.Crafting
 
         private void CreateInstance(CraftingInventoryItemView view, CraftingInventoryItemViewModel viewModel)
         {
-            var instance = Instantiate(view);
+            var instance = Instantiate(view, transform);
             instance.Inject(viewModel);
         }
     }
