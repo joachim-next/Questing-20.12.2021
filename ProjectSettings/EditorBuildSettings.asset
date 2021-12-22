@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CraftingView.unity
+    guid: b9d4d96739fd36e42a73e951067bf8be
   m_configObjects: {}
