@@ -16,9 +16,11 @@ namespace DefaultNamespace
         {
             var craftingInventoryItems = new[]
             {
-                new CraftingInventoryItem(0, 0, 0),
-                new CraftingInventoryItem(1, 1, 1),
-                new CraftingInventoryItem(2, 2, 2)
+                new CraftingInventoryItem(1, 2, 1),
+                new CraftingInventoryItem(1, 2, 2),
+                new CraftingInventoryItem(2, 1, 3),
+                new CraftingInventoryItem(2, 2, 3),
+                new CraftingInventoryItem(2, 3, 3)
             };
             
             return new CraftingInventory(craftingInventoryItems);

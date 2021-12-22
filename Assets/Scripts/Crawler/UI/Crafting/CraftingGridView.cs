@@ -50,9 +50,18 @@ namespace Crawler.UI.Crafting
 
         private Transform GetParentSlot(CraftingInventoryItemViewModel viewModel)
         {
-            var index = viewModel.X * viewModel.Y;
+            var index = GetSlotIndex(viewModel.X, viewModel.Y);
 
             return _slotInstances[index].transform;
+        }
+        
+        private int GetSlotIndex(int x, int y)
+        {
+            var lastChildIndex = _grid.transform.childCount - 1;
+            var gridWidth = _grid.constraintCount;
+
+            var slotNumber = x + y * gridWidth;
+            return lastChildIndex - slotNumber;
         }
     }
 }
