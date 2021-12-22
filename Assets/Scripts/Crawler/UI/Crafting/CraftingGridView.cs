@@ -6,7 +6,12 @@ namespace Crawler.UI.Crafting
     {
         [SerializeField] 
         private CraftingInventoryItemView _itemViewPrefab;
-        
+
+        public void Initialize(int width, int height)
+        {
+            
+        }
+
         public void SpawnItems(CraftingInventoryItemViewModel[] items)
         {
             foreach (var item in items)

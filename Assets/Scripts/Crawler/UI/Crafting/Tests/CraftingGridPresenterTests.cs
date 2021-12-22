@@ -66,5 +66,25 @@ namespace Crawler.UI.Crafting.Tests
                 .Received()
                 .Convert(models);
         }
+
+        [Test]
+        public void When_Present_Then_CraftingGridViewInitializeCalled()
+        {
+            var viewModelConverter = new CraftingInventoryViewModelConverter();
+
+            var inventoryItems = new[]
+            {
+                new CraftingInventoryItem(1,0,0)
+            };
+            var inventory = new CraftingInventory(inventoryItems);
+            
+            var presenter = new CraftingGridPresenter(_gridView, inventory, viewModelConverter);
+
+            presenter.Present();
+            
+            _gridView
+                .Received()
+                .Initialize(Arg.Any<int>(), Arg.Any<int>());
+        }
     }
 }
