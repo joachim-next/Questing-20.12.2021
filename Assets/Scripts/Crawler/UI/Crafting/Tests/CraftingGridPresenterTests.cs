@@ -1,5 +1,4 @@
-﻿using System;
-using Crawler.Crafting;
+﻿using Crawler.Crafting;
 using DefaultNamespace;
 using NSubstitute;
 using NUnit.Framework;
@@ -16,21 +15,6 @@ namespace Crawler.UI.Crafting.Tests
         {
             _gridView = Substitute.For<ICraftingGridView>();
             _resultView = Substitute.For<ICraftingResultView>();
-        }
-
-        [Test]
-        public void Given_NullOnModelChanged_When_Create_Then_Throws()
-        {
-            var viewModelConverter = new CraftingInventoryViewModelConverter();
-
-            var inventoryItems = new[]
-            {
-                new CraftingInventoryItem(0, 0,0)
-            };
-            var inventory = new CraftingInventory(inventoryItems);
-            
-            Assert.Throws<ArgumentNullException>(() => new CraftingGridPresenter(_gridView, _resultView, inventory,
-                viewModelConverter, null));
         }
         
         [Test]
@@ -50,10 +34,7 @@ namespace Crawler.UI.Crafting.Tests
                 .Convert(models)
                 .Returns(viewItems);
             
-            Action emptyOnModelChanged = () => { };
-
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
-                emptyOnModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             presenter.Present();
             
@@ -80,10 +61,7 @@ namespace Crawler.UI.Crafting.Tests
 
             var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
             
-            Action emptyOnModelChanged = () => { };
-
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
-                emptyOnModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
             
             presenter.Present();
             
@@ -103,10 +81,7 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryItems);
             
-            Action emptyOnModelChanged = () => { };
-
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
-                emptyOnModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             presenter.Present();
             
@@ -126,11 +101,8 @@ namespace Crawler.UI.Crafting.Tests
                 new CraftingInventoryItem(1, 2, 1)
             };
             var inventory = new CraftingInventory(inventoryItems);
-
-            Action emptyOnModelChanged = () => { };
             
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
-                emptyOnModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             presenter.Present();
             
@@ -151,11 +123,10 @@ namespace Crawler.UI.Crafting.Tests
                 new CraftingInventoryItem(1, 1, 1) 
             };
             var inventory = new CraftingInventory(inventoryItems);
-
-            Action onModelChanged = () => { eventFired = true; };
             
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
-                onModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
+            
+            presenter.OnModelChanged += () => { eventFired = true; };
             
             presenter.UpdateModel(new CraftingInventoryItemViewModel[0]);
             
@@ -172,11 +143,8 @@ namespace Crawler.UI.Crafting.Tests
             var inventory = new CraftingInventory(inventoryItems);
             
             var viewModelConverter = new CraftingInventoryViewModelConverter();
-
-            Action emptyOnModelChanged = () => { };
             
-            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
-                emptyOnModelChanged);
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter);
 
             var updatedViewModels = new[]
             {

@@ -1,4 +1,3 @@
-using System;
 using Crawler.Crafting;
 using DefaultNamespace;
 using UnityEngine;
@@ -12,8 +11,6 @@ namespace Crawler.UI.Crafting
         [SerializeField]
         private CraftingResultView _resultView;
         
-        public event Action OnModelChanged;
-        
         private ICraftingGridPresenter _gridPresenter;
         private ICraftingResultPresenter _resultPresenter;
      
@@ -26,10 +23,15 @@ namespace Crawler.UI.Crafting
 
         public void Awake()
         {
-            OnModelChanged += UpdatePresentation;
-
             _gridPresenter = CreateGridPresenter();
             _resultPresenter = CreateResultPresenter();
+            
+            RegisterOnModelChanged();
+        }
+
+        private void RegisterOnModelChanged()
+        {
+            _gridPresenter.OnModelChanged += UpdatePresentation;
         }
 
         private ICraftingGridPresenter CreateGridPresenter()
@@ -37,8 +39,7 @@ namespace Crawler.UI.Crafting
             var craftingInventory = IocContainer.GetSingleton<ICraftingInventory>();
             var viewModelConverter = new CraftingInventoryViewModelConverter();
             
-            return new CraftingGridPresenter(_gridView, _resultView, craftingInventory, viewModelConverter, 
-                OnModelChanged);
+            return new CraftingGridPresenter(_gridView, _resultView, craftingInventory, viewModelConverter);
         }
 
         private ICraftingResultPresenter CreateResultPresenter()

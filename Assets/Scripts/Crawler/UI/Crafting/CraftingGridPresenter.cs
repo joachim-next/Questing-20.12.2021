@@ -6,22 +6,20 @@ namespace Crawler.UI.Crafting
 {
     public class CraftingGridPresenter : ICraftingGridPresenter
     {
+        public event Action OnModelChanged;
+        
         private readonly ICraftingGridView _view;
         private readonly ICraftingResultView _resultView;
         private readonly ICraftingInventory _inventory;
         private readonly ICraftingInventoryItemViewModelConverter _viewModelConverter;
-        private readonly Action _onModelChanged;
         
         public CraftingGridPresenter(ICraftingGridView view, ICraftingResultView resultView, ICraftingInventory inventory, 
-            ICraftingInventoryItemViewModelConverter viewModelConverter, Action onModelChanged)
+            ICraftingInventoryItemViewModelConverter viewModelConverter)
         {
-            onModelChanged.ThrowIfNull(nameof(onModelChanged));
-
             _view = view;
             _resultView = resultView;
             _inventory = inventory;
             _viewModelConverter = viewModelConverter;
-            _onModelChanged = onModelChanged;
         }
         public void Present()
         {
@@ -38,7 +36,7 @@ namespace Crawler.UI.Crafting
             var updatedInventory = InventoryFrom(viewModels);
             IocContainer.RegisterSingleton(updatedInventory);
             
-            _onModelChanged();
+            OnModelChanged?.Invoke();
         }
 
         private ICraftingInventory InventoryFrom(CraftingInventoryItemViewModel[] viewModels)
