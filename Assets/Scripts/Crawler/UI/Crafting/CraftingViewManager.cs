@@ -6,7 +6,8 @@ namespace Crawler.UI.Crafting
 {
     public class CraftingViewManager : MonoBehaviour
     {
-        private ICraftingGridView _gridView;
+        [SerializeField]
+        private CraftingGridView _gridView;
         
         private ICraftingGridPresenter _gridPresenter;
      
