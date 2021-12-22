@@ -2,7 +2,8 @@
     "name": "Crawler.UI.Crafting.Tests",
     "references": [
         "GUID:9c524b4878d4a654cadceb44a92ab673",
-        "GUID:96bffcae5fbc8534f9992bc54a9b7617"
+        "GUID:96bffcae5fbc8534f9992bc54a9b7617",
+        "GUID:cb7e21783aa2f244597ef7af9b6c04db"
     ],
     "includePlatforms": [
         "Editor"

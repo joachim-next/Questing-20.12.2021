@@ -1,7 +1,6 @@
 namespace Crawler.UI.Crafting
 {
-    public interface ICraftingGridPresenter
+    public interface ICraftingGridPresenter : IViewPresenter
     {
-        void Present();
     }
 }
