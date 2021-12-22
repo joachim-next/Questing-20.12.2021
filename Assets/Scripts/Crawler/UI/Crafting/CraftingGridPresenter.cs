@@ -1,5 +1,6 @@
 using System;
 using Crawler.Crafting;
+using DefaultNamespace;
 
 namespace Crawler.UI.Crafting
 {
@@ -9,10 +10,10 @@ namespace Crawler.UI.Crafting
         private readonly ICraftingResultView _resultView;
         private readonly ICraftingInventory _inventory;
         private readonly ICraftingInventoryItemViewModelConverter _viewModelConverter;
-        private readonly Action<ICraftingInventory> _onModelChanged;
+        private readonly Action _onModelChanged;
         
         public CraftingGridPresenter(ICraftingGridView view, ICraftingResultView resultView, ICraftingInventory inventory, 
-            ICraftingInventoryItemViewModelConverter viewModelConverter, Action<ICraftingInventory> onModelChanged)
+            ICraftingInventoryItemViewModelConverter viewModelConverter, Action onModelChanged)
         {
             onModelChanged.ThrowIfNull(nameof(onModelChanged));
 
@@ -34,7 +35,24 @@ namespace Crawler.UI.Crafting
 
         public void UpdateModel(CraftingInventoryItemViewModel[] viewModels)
         {
-            _onModelChanged(default);
+            var updatedInventory = InventoryFrom(viewModels);
+            IocContainer.RegisterSingleton(updatedInventory);
+            
+            _onModelChanged();
+        }
+
+        private ICraftingInventory InventoryFrom(CraftingInventoryItemViewModel[] viewModels)
+        {
+            var models = new CraftingInventoryItem[viewModels.Length];
+            for(int i = 0; i < viewModels.Length; i++)
+            {
+                var viewModel = viewModels[i];
+                var model = new CraftingInventoryItem(viewModel.IngredientType, viewModel.X, viewModel.Y);
+
+                models[i] = model;
+            }
+            
+            return new CraftingInventory(models);
         }
     }
 }

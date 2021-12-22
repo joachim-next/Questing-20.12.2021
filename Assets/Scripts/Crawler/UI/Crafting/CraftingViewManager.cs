@@ -12,7 +12,7 @@ namespace Crawler.UI.Crafting
         [SerializeField]
         private CraftingResultView _resultView;
         
-        public event Action<ICraftingInventory> OnModelChanged;
+        public event Action OnModelChanged;
         
         private ICraftingGridPresenter _gridPresenter;
         private ICraftingResultPresenter _resultPresenter;
@@ -26,6 +26,8 @@ namespace Crawler.UI.Crafting
 
         public void Awake()
         {
+            OnModelChanged += UpdatePresentation;
+
             _gridPresenter = CreateGridPresenter();
             _resultPresenter = CreateResultPresenter();
         }
@@ -47,6 +49,11 @@ namespace Crawler.UI.Crafting
         }
         
         public void Start()
+        {
+            UpdatePresentation();
+        }
+
+        private void UpdatePresentation()
         {
             _gridPresenter.Present();
             _resultPresenter.Present();

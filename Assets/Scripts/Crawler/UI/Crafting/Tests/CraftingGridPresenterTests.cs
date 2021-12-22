@@ -1,5 +1,6 @@
 ﻿using System;
 using Crawler.Crafting;
+using DefaultNamespace;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -49,7 +50,7 @@ namespace Crawler.UI.Crafting.Tests
                 .Convert(models)
                 .Returns(viewItems);
             
-            Action<ICraftingInventory> emptyOnModelChanged = _ => { };
+            Action emptyOnModelChanged = () => { };
 
             var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
                 emptyOnModelChanged);
@@ -79,7 +80,7 @@ namespace Crawler.UI.Crafting.Tests
 
             var viewModelConverter = Substitute.For<ICraftingInventoryItemViewModelConverter>();
             
-            Action<ICraftingInventory> emptyOnModelChanged = _ => { };
+            Action emptyOnModelChanged = () => { };
 
             var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
                 emptyOnModelChanged);
@@ -102,7 +103,7 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryItems);
             
-            Action<ICraftingInventory> emptyOnModelChanged = _ => { };
+            Action emptyOnModelChanged = () => { };
 
             var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
                 emptyOnModelChanged);
@@ -126,7 +127,7 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryItems);
 
-            Action<ICraftingInventory> emptyOnModelChanged = _ => { };
+            Action emptyOnModelChanged = () => { };
             
             var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter,
                 emptyOnModelChanged);
@@ -139,7 +140,7 @@ namespace Crawler.UI.Crafting.Tests
         }
 
         [Test]
-        public void When_UpdateModel_Then_ModelChangeInvoked()
+        public void When_UpdateModel_Then_OnModelChangedFired()
         {
             bool eventFired = false;
 
@@ -151,7 +152,7 @@ namespace Crawler.UI.Crafting.Tests
             };
             var inventory = new CraftingInventory(inventoryItems);
 
-            Action<ICraftingInventory> onModelChanged = _ => { eventFired = true; };
+            Action onModelChanged = () => { eventFired = true; };
             
             var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
                 onModelChanged);
@@ -159,6 +160,39 @@ namespace Crawler.UI.Crafting.Tests
             presenter.UpdateModel(new CraftingInventoryItemViewModel[0]);
             
             Assert.True(eventFired);
+        }
+
+        [Test]
+        public void When_UpdateModel_Then_ModelChanged()
+        {
+            var inventoryItems = new[]
+            {
+                new CraftingInventoryItem(1, 1, 1) 
+            };
+            var inventory = new CraftingInventory(inventoryItems);
+            
+            var viewModelConverter = new CraftingInventoryViewModelConverter();
+
+            Action emptyOnModelChanged = () => { };
+            
+            var presenter = new CraftingGridPresenter(_gridView, _resultView, inventory, viewModelConverter, 
+                emptyOnModelChanged);
+
+            var updatedViewModels = new[]
+            {
+                new CraftingInventoryItemViewModel(1, 0, 0) 
+            };
+            presenter.UpdateModel(updatedViewModels);
+
+            var actual = IocContainer.GetSingleton<ICraftingInventory>();
+            
+            var expectedInventoryItems = new[]
+            {
+                new CraftingInventoryItem(1, 0, 0), 
+            };
+            var expected = new CraftingInventory(expectedInventoryItems);
+            
+            Assert.AreEqual(expected, actual);
         }
     }
 }
