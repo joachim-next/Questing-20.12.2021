@@ -10,47 +10,74 @@ namespace Crawler.UI.Crafting
         
         private readonly ICraftingGridView _view;
         private readonly ICraftingResultView _resultView;
-        private readonly ICraftingInventory _inventory;
         private readonly ICraftingInventoryItemViewModelConverter _viewModelConverter;
         
-        public CraftingGridPresenter(ICraftingGridView view, ICraftingResultView resultView, ICraftingInventory inventory, 
+        public CraftingGridPresenter(ICraftingGridView view, ICraftingResultView resultView, 
             ICraftingInventoryItemViewModelConverter viewModelConverter)
         {
             _view = view;
             _resultView = resultView;
-            _inventory = inventory;
             _viewModelConverter = viewModelConverter;
         }
         public void Present()
         {
-            var viewModels = _viewModelConverter.Convert(_inventory.Nodes);
+            var inventory = IocContainer.GetSingleton<ICraftingInventory>();
+            var viewModels = _viewModelConverter.Convert(inventory.Nodes);
 
+            _view.OnViewModelMoved += OnViewModelMoved;
+            
             _view.Initialize(5, 6);
+            _view.ClearItems();
             _view.SpawnItems(viewModels);
 
-            _resultView.ShowResult(_inventory);
+            _resultView.ShowResult(inventory);
         }
 
-        public void UpdateModel(CraftingInventoryItemViewModel[] viewModels)
+        private void OnViewModelMoved((int x, int y) start, (int x, int y) target)
         {
-            var updatedInventory = InventoryFrom(viewModels);
-            IocContainer.RegisterSingleton(updatedInventory);
+            var inventory = IocContainer.GetSingleton<ICraftingInventory>();
             
+            var moverIndex = FindIndexByCoordinates(start.x, start.y);
+
+            if (moverIndex == -1)
+            {
+                return;
+            }
+            
+            var moverIngredientType = inventory.Nodes[moverIndex].IngredientType;
+            
+            var occupierIndex = FindIndexByCoordinates(target.x, target.y);
+            
+            inventory.Nodes[moverIndex] = new CraftingInventoryItem(moverIngredientType, target.x, target.y);
+            
+            if (occupierIndex == -1)
+            {
+                IocContainer.RegisterSingleton(inventory);
+                OnModelChanged?.Invoke();
+                return;
+            }
+
+            var occupierIngredientType = inventory.Nodes[occupierIndex].IngredientType;
+            
+            inventory.Nodes[occupierIndex] = new CraftingInventoryItem(occupierIngredientType, start.x, start.y);
+            
+            IocContainer.RegisterSingleton(inventory);
             OnModelChanged?.Invoke();
         }
 
-        private ICraftingInventory InventoryFrom(CraftingInventoryItemViewModel[] viewModels)
+        private int FindIndexByCoordinates(int x, int y)
         {
-            var models = new CraftingInventoryItem[viewModels.Length];
-            for(int i = 0; i < viewModels.Length; i++)
+            var inventory = IocContainer.GetSingleton<ICraftingInventory>();
+            for (int i = 0; i < inventory.Nodes.Length; i++)
             {
-                var viewModel = viewModels[i];
-                var model = new CraftingInventoryItem(viewModel.IngredientType, viewModel.X, viewModel.Y);
-
-                models[i] = model;
+                var node = inventory.Nodes[i];
+                if (node.X == x && node.Y == y)
+                {
+                    return i;
+                }
             }
-            
-            return new CraftingInventory(models);
+
+            return -1;
         }
     }
 }

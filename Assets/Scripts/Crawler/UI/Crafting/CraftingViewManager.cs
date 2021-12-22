@@ -36,10 +36,9 @@ namespace Crawler.UI.Crafting
 
         private ICraftingGridPresenter CreateGridPresenter()
         {
-            var craftingInventory = IocContainer.GetSingleton<ICraftingInventory>();
             var viewModelConverter = new CraftingInventoryViewModelConverter();
             
-            return new CraftingGridPresenter(_gridView, _resultView, craftingInventory, viewModelConverter);
+            return new CraftingGridPresenter(_gridView, _resultView, viewModelConverter);
         }
 
         private ICraftingResultPresenter CreateResultPresenter()
