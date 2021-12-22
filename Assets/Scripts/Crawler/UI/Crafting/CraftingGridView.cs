@@ -1,15 +1,36 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Crawler.UI.Crafting
 {
     public class CraftingGridView : MonoBehaviour, ICraftingGridView
     {
         [SerializeField] 
+        private GridLayoutGroup _grid;
+
+        private GameObject[] _slotInstances;
+        
+        [Header("Prefabs")] 
+        [SerializeField] private GameObject _gridSlotPrefab;
+        [SerializeField] 
         private CraftingInventoryItemView _itemViewPrefab;
 
         public void Initialize(int width, int height)
         {
+            _grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            _grid.constraintCount = width;
             
+            SpawnSlots(width * height);
+        }
+
+        private void SpawnSlots(int count)
+        {
+            _slotInstances = new GameObject[count];
+            
+            for (int i = 0; i < count; i++)
+            {
+                _slotInstances[i] = Instantiate(_gridSlotPrefab, transform);
+            }
         }
 
         public void SpawnItems(CraftingInventoryItemViewModel[] items)
@@ -22,8 +43,16 @@ namespace Crawler.UI.Crafting
 
         private void CreateInstance(CraftingInventoryItemView view, CraftingInventoryItemViewModel viewModel)
         {
-            var instance = Instantiate(view, transform);
+            var parent = GetParentSlot(viewModel);
+            var instance = Instantiate(view, parent);
             instance.Inject(viewModel);
+        }
+
+        private Transform GetParentSlot(CraftingInventoryItemViewModel viewModel)
+        {
+            var index = viewModel.X * viewModel.Y;
+
+            return _slotInstances[index].transform;
         }
     }
 }
