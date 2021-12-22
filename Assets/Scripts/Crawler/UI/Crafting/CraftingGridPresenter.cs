@@ -1,3 +1,4 @@
+using System;
 using Crawler.Crafting;
 
 namespace Crawler.UI.Crafting
@@ -8,14 +9,18 @@ namespace Crawler.UI.Crafting
         private readonly ICraftingResultView _resultView;
         private readonly ICraftingInventory _inventory;
         private readonly ICraftingInventoryItemViewModelConverter _viewModelConverter;
+        private readonly Action<ICraftingInventory> _onModelChanged;
         
         public CraftingGridPresenter(ICraftingGridView view, ICraftingResultView resultView, ICraftingInventory inventory, 
-            ICraftingInventoryItemViewModelConverter viewModelConverter)
+            ICraftingInventoryItemViewModelConverter viewModelConverter, Action<ICraftingInventory> onModelChanged)
         {
+            onModelChanged.ThrowIfNull(nameof(onModelChanged));
+
             _view = view;
             _resultView = resultView;
             _inventory = inventory;
             _viewModelConverter = viewModelConverter;
+            _onModelChanged = onModelChanged;
         }
         public void Present()
         {
@@ -25,6 +30,11 @@ namespace Crawler.UI.Crafting
             _view.SpawnItems(viewModels);
 
             _resultView.ShowResult(_inventory);
+        }
+
+        public void UpdateModel(CraftingInventoryItemViewModel[] viewModels)
+        {
+            _onModelChanged(default);
         }
     }
 }
