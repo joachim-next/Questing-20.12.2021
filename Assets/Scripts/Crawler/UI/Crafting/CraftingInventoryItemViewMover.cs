@@ -13,12 +13,18 @@ namespace Crawler.UI.Crafting
         private EventSystem _eventSystem;
 
         private CraftingInventoryItemView _selectedView;
+        private Vector3 _selectedViewOrigin;
     
         private void Update()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 SelectView();
+                SaveSelectedViewPosition();
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                MoveSelectedView();
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -63,6 +69,28 @@ namespace Crawler.UI.Crafting
             }
             
             return view;
+        }
+
+        private void SaveSelectedViewPosition()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            _selectedViewOrigin = _selectedView.transform.position;
+        }
+
+        private void MoveSelectedView()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            var mousePositionAtGridLevel = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 
+                _selectedViewOrigin.z);
+            _selectedView.transform.position = mousePositionAtGridLevel;
         }
 
         private void Reset()
