@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -8,13 +7,9 @@ namespace Crawler.Crafting.Tests
     {
         private CraftingFormation[] _formations;
         private ICraftingFormationProvider _formationProvider;
-        private CraftingInventoryNodeBingoForm[] _bingoForms;
-        private ICraftingInventoryNodeBingoFormFactory _bingoFormFactory;
         private ICraftingInventory _inventory;
         private CraftingFormation[] _filteredFormations;
         private ICraftingFormationFilter _formationFilter;
-        private CraftingInventoryBingoResult _bingoResult;
-        private ICraftingInventoryNodeBingo _inventoryNodeBingo;
         private CraftingFormationFinder _formationFinder;
         
         [SetUp]
@@ -65,30 +60,7 @@ namespace Crawler.Crafting.Tests
                 .Execute(_formations, _inventory)
                 .Returns(_filteredFormations);
 
-            _bingoForms = new[]
-            {
-                new CraftingInventoryNodeBingoForm(inventoryNodes[0], _filteredFormations[0]),
-
-                new CraftingInventoryNodeBingoForm(inventoryNodes[1], _filteredFormations[1]),
-            };
-            _bingoFormFactory = Substitute.For<ICraftingInventoryNodeBingoFormFactory>();
-            _bingoFormFactory
-                .Create(_inventory, _filteredFormations)
-                .Returns(_bingoForms);
-
-            var checkedFormations = new[]
-            {
-                _filteredFormations[0],
-                _filteredFormations[1]
-            };
-            var bingoResult = new CraftingInventoryBingoResult(checkedFormations);
-            _inventoryNodeBingo = Substitute.For<ICraftingInventoryNodeBingo>();
-            _inventoryNodeBingo
-                .Execute(_bingoForms, _inventory)
-                .Returns(bingoResult);
-
-            _formationFinder = new CraftingFormationFinder(_formationProvider, _formationFilter, _bingoFormFactory, 
-                _inventoryNodeBingo);
+            _formationFinder = new CraftingFormationFinder(_formationProvider, _formationFilter);
         }
         
         [Test]
@@ -119,26 +91,6 @@ namespace Crawler.Crafting.Tests
             _formationFilter
                 .Received()
                 .Execute(_formations, _inventory);
-        }
-        
-        [Test]
-        public void Given_ValidArgs_When_Find_Then_ICraftingInventoryNodeBingoFormFactoryCreateCalled()
-        {
-            _formationFinder.Find(_inventory);
-            
-            _bingoFormFactory
-                .Received()
-                .Create(_inventory, _filteredFormations);
-        }
-
-        [Test]
-        public void Given_ValidArgs_When_Find_Then_ICraftingInventoryNodeBingoExecuteCalled()
-        {
-            _formationFinder.Find(_inventory);
-            
-            _inventoryNodeBingo
-                .Received()
-                .Execute(_bingoForms, _inventory);
         }
     }
 }

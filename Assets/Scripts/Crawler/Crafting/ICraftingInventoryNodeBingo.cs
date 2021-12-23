@@ -2,7 +2,7 @@ namespace Crawler.Crafting
 {
     public interface ICraftingInventoryNodeBingo
     {
-        CraftingInventoryBingoResult Execute(CraftingInventoryNodeBingoForm[] forms,
+        CraftingInventoryNodeBingoForm[] Execute(CraftingInventoryNodeBingoForm[] forms,
             ICraftingInventory inventory);
     }
 }

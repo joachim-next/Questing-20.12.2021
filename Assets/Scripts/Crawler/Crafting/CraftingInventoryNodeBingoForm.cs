@@ -5,12 +5,14 @@ namespace Crawler.Crafting
         public CraftingInventoryItem Item { get; }
         public CraftingFormation Formation { get; }
         public bool[] CheckedNodes { get; }
+        public CraftingInventoryItem[] CheckedItems;
 
         public CraftingInventoryNodeBingoForm(CraftingInventoryItem item, CraftingFormation formation)
         {
             Item = item;
             Formation = formation;
             CheckedNodes = new bool[formation.Nodes.Length];
+            CheckedItems = new CraftingInventoryItem[formation.Nodes.Length];
         }
 
         public override bool Equals(object obj)
@@ -128,7 +130,7 @@ namespace Crawler.Crafting
             return value;
         }
 
-        public void TryCheck(int ingredientType, int x, int y)
+        public void TryCheck(CraftingInventoryItem item)
         {
             CraftingFormationNode match = null;
             int indexOfMatch = -1;
@@ -139,9 +141,9 @@ namespace Crawler.Crafting
                 var normalizedX = Item.X + formationNode.RelativeX;
                 var normalizedY = Item.Y + formationNode.RelativeY;
                 
-                if (formationNode.IngredientType != ingredientType ||
-                    normalizedX != x ||
-                    normalizedY != y)
+                if (formationNode.IngredientType != item.IngredientType ||
+                    normalizedX != item.X ||
+                    normalizedY != item.Y)
                 {
                     continue;
                 }
@@ -157,6 +159,7 @@ namespace Crawler.Crafting
             }
 
             CheckedNodes[indexOfMatch] = true;
+            CheckedItems[indexOfMatch] = item;
         }
     }
 }

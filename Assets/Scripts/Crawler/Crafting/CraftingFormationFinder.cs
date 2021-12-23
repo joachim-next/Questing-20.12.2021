@@ -4,17 +4,12 @@ namespace Crawler.Crafting
     {
         private readonly ICraftingFormationProvider _formationProvider;
         private readonly ICraftingFormationFilter _formationFilter;
-        private readonly ICraftingInventoryNodeBingoFormFactory _bingoFormFactory;
-        private readonly ICraftingInventoryNodeBingo _inventoryNodeBingo;
 
         public CraftingFormationFinder(ICraftingFormationProvider formationProvider,
-            ICraftingFormationFilter formationFilter, ICraftingInventoryNodeBingoFormFactory bingoFormFactory, 
-            ICraftingInventoryNodeBingo inventoryNodeBingo)
+            ICraftingFormationFilter formationFilter)
         {
             _formationProvider = formationProvider;
             _formationFilter = formationFilter;
-            _bingoFormFactory = bingoFormFactory;
-            _inventoryNodeBingo = inventoryNodeBingo;
         }
         
         public CraftingFormationFindingResult Find(ICraftingInventory inventory)
@@ -25,12 +20,8 @@ namespace Crawler.Crafting
             var formations = _formationProvider.Provide();
 
             formations = _formationFilter.Execute(formations, inventory);
-
-            var bingoForms = _bingoFormFactory.Create(inventory, formations);
-
-            var bingoResults = _inventoryNodeBingo.Execute(bingoForms, inventory);
             
-            return new CraftingFormationFindingResult(true, bingoResults.Formations);
+            return new CraftingFormationFindingResult(true, formations);
         }
     }
 }

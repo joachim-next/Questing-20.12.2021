@@ -1,7 +1,8 @@
 {
     "name": "Crawler.Crafting",
     "references": [
-        "GUID:5e54952e274a17d4eb68cbc78168a724"
+        "GUID:5e54952e274a17d4eb68cbc78168a724",
+        "GUID:e4af3714cdad7cd48a353edba9b5192d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

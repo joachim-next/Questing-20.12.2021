@@ -38,10 +38,10 @@ namespace Crawler.Crafting.Tests
                 new CraftingInventoryNodeBingoForm(inventoryNodes[1], secondFormation),
             };
             
-            var result = craftingInventoryNodeBingo.Execute(bingoForms, inventory);
+            var executedForms = craftingInventoryNodeBingo.Execute(bingoForms, inventory);
 
-            Assert.That(result.Formations.Contains(bingoForms[0].Formation));
-            Assert.That(!result.Formations.Contains(bingoForms[1].Formation));
+            Assert.That(executedForms[0].CheckedNodes.All(x=> x));
+            Assert.That(executedForms[1].CheckedNodes.All(x=> !x));
         }
     }
 }

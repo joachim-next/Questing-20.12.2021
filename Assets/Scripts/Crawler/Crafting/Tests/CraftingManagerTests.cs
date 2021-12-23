@@ -20,10 +20,10 @@ namespace Crawler.Crafting.Tests
                 .Find(inventory)
                 .Returns(findingResult);
 
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
+            var formationValidator = Substitute.For<ICraftingContractResolver>();
             formationValidator
-                .Validate(default)
-                .ReturnsForAnyArgs(true);
+                .Resolve(default)
+                .ReturnsForAnyArgs(new CraftingContract[1]);
             
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
@@ -47,39 +47,12 @@ namespace Crawler.Crafting.Tests
                 .Find(inventory)
                 .Returns(findingResult);
             
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
-            formationValidator
-                .Validate(default)
-                .ReturnsForAnyArgs(true);
+            var contractResolver = Substitute.For<ICraftingContractResolver>();
+            contractResolver
+                .Resolve(default)
+                .ReturnsForAnyArgs(new CraftingContract[0]);
 
-            var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
-            
-            var contracts = craftingManager.TryGetContracts();
-            
-            Assert.IsEmpty(contracts);
-        }
-
-        [Test]
-        public void Given_FormationsNotValid_When_TryGetContracts_Then_ReturnsEmptyContracts()
-        {
-            var inventory = Substitute.For<ICraftingInventory>();
-            inventory
-                .HasItems
-                .Returns(true);
-
-            var findingResult = new CraftingFormationFindingResult(true, new CraftingFormation[1]);
-            
-            var formationFinder = Substitute.For<ICraftingFormationFinder>();
-            formationFinder
-                .Find(inventory)
-                .Returns(findingResult);
-
-            var formationValidator = Substitute.For<ICraftingFormationValidator>();
-            formationValidator    
-                .Validate(default)
-                .ReturnsForAnyArgs(false);
-            
-            var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
+            var craftingManager = new CraftingManager(inventory, formationFinder, contractResolver);
             
             var contracts = craftingManager.TryGetContracts();
             

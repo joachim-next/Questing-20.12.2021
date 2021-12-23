@@ -35,11 +35,8 @@ namespace DefaultNamespace
         private ICraftingFormationFinder GetCraftingFormationFinder()
         {
             var formationFilter = new NotOwnedFormationFilter();
-            var nodeBingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
-            var nodeBingo = new CraftingInventoryNodeBingo();
 
-            return new CraftingFormationFinder(CraftingContext.FormationProvider, formationFilter, 
-                nodeBingoFormFactory, nodeBingo);
+            return new CraftingFormationFinder(CraftingContext.FormationProvider, formationFilter);
         }
         
         public void Start()
