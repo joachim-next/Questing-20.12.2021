@@ -95,6 +95,12 @@ namespace Crawler.UI.Crafting
 
         private void Reset()
         {
+            if (_selectedView == null)
+            {
+                return;
+            }
+            
+            _selectedView.transform.position = _selectedViewOrigin;
             _selectedView = null;
         }
     }
