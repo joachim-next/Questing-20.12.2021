@@ -36,7 +36,10 @@ namespace Crawler.Crafting
 
         private CraftingContract Convert(CraftingInventoryNodeBingoForm bingoForm)
         {
-            return new CraftingContract(bingoForm.CheckedItems, bingoForm.Formation);
+            var itemToBeCrafted = new CraftingInventoryItem(bingoForm.Formation.ResultItemIngredientType,
+                bingoForm.Item.X, bingoForm.Item.Y);
+            return new CraftingContract(itemToBeCrafted, bingoForm.CheckedItems,
+                bingoForm.Formation);
         }
     }
 }

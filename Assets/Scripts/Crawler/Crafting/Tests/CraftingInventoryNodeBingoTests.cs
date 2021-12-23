@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -23,14 +22,14 @@ namespace Crawler.Crafting.Tests
                 new CraftingFormationNode(0, 0, 0),
                 new CraftingFormationNode(0, 0, 1)
             };
-            var firstFormation = new CraftingFormation(firstFormationNodes);
+            var firstFormation = new CraftingFormation(3, firstFormationNodes);
             
             var secondFormationNodes = new []
             {
                 new CraftingFormationNode(0, 0, 1),
                 new CraftingFormationNode(0, 0, 2)
             };
-            var secondFormation = new CraftingFormation(secondFormationNodes);
+            var secondFormation = new CraftingFormation(3, secondFormationNodes);
 
             var bingoForms = new[]
             {

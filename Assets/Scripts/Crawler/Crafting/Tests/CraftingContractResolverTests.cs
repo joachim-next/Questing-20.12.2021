@@ -27,7 +27,7 @@ namespace Crawler.Crafting.Tests
             {
                 new CraftingFormationNode(1, 0, 0)
             };
-            var formation = new CraftingFormation(formationNodes);
+            var formation = new CraftingFormation(3, formationNodes);
             _formations = new[] { formation };
 
             var form = new CraftingInventoryNodeBingoForm(item, formation);
@@ -104,6 +104,52 @@ namespace Crawler.Crafting.Tests
         public void Given_ArrayWithNullEntries_When_Resolve_Throws()
         {
             Assert.Throws<ArgumentException>(()=> _contractResolver.Resolve(new CraftingFormation[5]));
+        }
+
+        [Test]
+        public void Given_ValidItems_When_Resolve_Then_ReturnsContractWithCorrectIngredientType()
+        {
+            var inventoryItems = new[]
+            {
+                new CraftingInventoryItem(1, 2, 0),
+                new CraftingInventoryItem(2, 2, 1),
+            };
+            var inventory = new CraftingInventory(inventoryItems);
+           
+            var formationNodes = new[]
+            {
+                new CraftingFormationNode(1, 0, 0),
+                new CraftingFormationNode(2, 0, 1)
+            };
+            var formation = new CraftingFormation(3, formationNodes);
+            var formations = new[] {formation};
+
+            var form = new CraftingInventoryNodeBingoForm(inventoryItems[0], formation);
+            form.TryCheck(inventoryItems[0]);
+            form.TryCheck(inventoryItems[1]);
+            var forms = new[]
+            {
+                form 
+            };    
+            
+            var bingoFormFactory = Substitute.For<ICraftingInventoryNodeBingoFormFactory>();
+            bingoFormFactory
+                .Create(inventory, formations)
+                .Returns(forms);
+
+            var bingo = Substitute.For<ICraftingInventoryNodeBingo>();
+            bingo
+                .Execute(forms, inventory)
+                .Returns(forms);
+            
+            var contractResolver = new CraftingContractResolver(inventory, bingoFormFactory, bingo);
+
+            var contracts = contractResolver.Resolve(formations);
+            
+            var contract = contracts[0];
+            
+            Assert.AreEqual(formation.ResultItemIngredientType, 
+                contract.ItemToBeCrafted.IngredientType);
         }
     }
 }

@@ -41,9 +41,9 @@ namespace Crawler.Crafting.Tests
             };
             _formations = new []
             {
-                new CraftingFormation(firstFormationNodes),
-                new CraftingFormation(secondFormationNodes),
-                new CraftingFormation(thirdFormationNodes)
+                new CraftingFormation(3,firstFormationNodes),
+                new CraftingFormation(3, secondFormationNodes),
+                new CraftingFormation(3, thirdFormationNodes)
             };
             _formationProvider = Substitute.For<ICraftingFormationProvider>();
             _formationProvider

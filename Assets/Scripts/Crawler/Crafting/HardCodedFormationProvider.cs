@@ -15,7 +15,7 @@ namespace Crawler.Crafting
             
             return new[]
             {
-                new CraftingFormation(formationNodes) 
+                new CraftingFormation(3, formationNodes) 
             };
         }
     }

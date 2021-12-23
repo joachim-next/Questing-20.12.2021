@@ -22,7 +22,7 @@ namespace Crawler.UI
                 var targetFormation = targetFormations[i];
                 var nodes = ConvertNodes(targetFormation.Nodes);
                 
-                formations[i] = new CraftingFormation(nodes);
+                formations[i] = new CraftingFormation(3, nodes);
             }
             
             return formations;

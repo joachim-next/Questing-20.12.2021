@@ -16,7 +16,7 @@ namespace Crawler.Crafting.Tests
                 new CraftingFormationNode(1, 0, 0),
                 new CraftingFormationNode(2, -1, 0)
             };
-            var formation = new CraftingFormation(formationNodes);
+            var formation = new CraftingFormation(3, formationNodes);
             
             var form = new CraftingInventoryNodeBingoForm(item1, formation);
 
@@ -35,7 +35,7 @@ namespace Crawler.Crafting.Tests
             {
                 new CraftingFormationNode(1, 0, 0) 
             };
-            var formation = new CraftingFormation(formationNodes);
+            var formation = new CraftingFormation(3, formationNodes);
             
             var form = new CraftingInventoryNodeBingoForm(item, formation);
 
