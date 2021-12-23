@@ -17,3 +17,7 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 4aa4558cec017b1418b3f4e481c084cb, type: 3}
   - IngredientType: 2
     Sprite: {fileID: 21300000, guid: 6e9021e6c60c8a04aac912a1927bb151, type: 3}
+  - IngredientType: 1000
+    Sprite: {fileID: 21300000, guid: 04439ca4e96af394b9438d08a8486458, type: 3}
+  - IngredientType: 1001
+    Sprite: {fileID: 21300000, guid: b17412c9bdffd1c4989835906e52f963, type: 3}

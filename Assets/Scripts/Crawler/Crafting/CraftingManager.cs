@@ -19,12 +19,8 @@
             var findingResult = _formationFinder.Find(_craftingInventory);
             if (!findingResult.Success)
                 return new CraftingContract[0];
-
-            var contracts = _contractResolver.Resolve(findingResult.Formations); 
-            if (contracts.Length == 0)
-                return new CraftingContract[0];
             
-            return new CraftingContract[1];
+            return _contractResolver.Resolve(findingResult.Formations);
         }
     }
 }
