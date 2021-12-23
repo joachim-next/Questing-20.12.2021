@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ingredientTypeText: {fileID: 6482543154631139323}
+  _image: {fileID: 1605797171304498169}
+  ImageHolder: {fileID: 11400000, guid: 645f745b704473e4b9243fc19544a7d7, type: 2}
 --- !u!114 &1605797171304498169
 MonoBehaviour:
   m_ObjectHideFlags: 0
