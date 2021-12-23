@@ -26,16 +26,19 @@ namespace Crawler.UI.Crafting
         
         public void Awake()
         {
-            _viewMover.OnSwapped += (fromSlot, toSlot) =>
-            {
-                var fromIndex = IndexOfObject(fromSlot, _slotInstances);
-                var fromCoordinates = GetCoordinates(fromIndex);
+            _viewMover.OnSwapped -= OnSwapped;
+            _viewMover.OnSwapped += OnSwapped;
+        }
 
-                var toSlotIndex = IndexOfObject(toSlot, _slotInstances);
-                var toCoordinates = GetCoordinates(toSlotIndex);
+        private void OnSwapped(GameObject fromSlot, GameObject toSlot)
+        {
+            var fromIndex = IndexOfObject(fromSlot, _slotInstances);
+            var fromCoordinates = GetCoordinates(fromIndex);
+
+            var toSlotIndex = IndexOfObject(toSlot, _slotInstances);
+            var toCoordinates = GetCoordinates(toSlotIndex);
                 
-                OnViewModelMoved?.Invoke(fromCoordinates, toCoordinates);
-            };
+            OnViewModelMoved?.Invoke(fromCoordinates, toCoordinates);
         }
 
         private int IndexOfObject(GameObject item, GameObject[] collection)

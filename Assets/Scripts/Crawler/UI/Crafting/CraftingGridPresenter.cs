@@ -24,6 +24,7 @@ namespace Crawler.UI.Crafting
             var inventory = IocContainer.GetSingleton<ICraftingInventory>();
             var viewModels = _viewModelConverter.Convert(inventory.Nodes);
 
+            _view.OnViewModelMoved -= OnViewModelMoved;
             _view.OnViewModelMoved += OnViewModelMoved;
             
             _view.Initialize(5, 6);
