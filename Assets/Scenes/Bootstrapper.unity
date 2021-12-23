@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00094a6f35c37f24292dc674b94b7d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _craftingContext: {fileID: 353639152}
+  CraftingContext: {fileID: 353639152}
 --- !u!4 &1730395343
 Transform:
   m_ObjectHideFlags: 0
