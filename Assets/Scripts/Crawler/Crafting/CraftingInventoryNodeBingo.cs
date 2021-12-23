@@ -11,7 +11,7 @@ namespace Crawler.Crafting
             {
                 foreach (var form in forms)
                 {
-                    form.TryCheck(node.X, node.Y);   
+                    form.TryCheck(node.IngredientType, node.X, node.Y);   
                 }
             }
 

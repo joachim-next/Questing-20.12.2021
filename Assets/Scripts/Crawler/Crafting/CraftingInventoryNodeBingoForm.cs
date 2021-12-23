@@ -128,7 +128,7 @@ namespace Crawler.Crafting
             return value;
         }
 
-        public void TryCheck(int x, int y)
+        public void TryCheck(int ingredientType, int x, int y)
         {
             CraftingFormationNode match = null;
             int indexOfMatch = -1;
@@ -139,7 +139,8 @@ namespace Crawler.Crafting
                 var normalizedX = Item.X + formationNode.RelativeX;
                 var normalizedY = Item.Y + formationNode.RelativeY;
                 
-                if (normalizedX != x ||
+                if (formationNode.IngredientType != ingredientType ||
+                    normalizedX != x ||
                     normalizedY != y)
                 {
                     continue;
