@@ -14,8 +14,8 @@ namespace DefaultNamespace
             var craftingInventory = GetCraftingInventory();
             IocContainer.RegisterSingleton(craftingInventory);
 
-            var craftingFormationFinder = GetCraftingFormationFinder();
-            IocContainer.RegisterSingleton(craftingFormationFinder);
+            var craftingManager = GetCraftingManager(craftingInventory);
+            IocContainer.RegisterSingleton(craftingManager);
         }
 
         private ICraftingInventory GetCraftingInventory()
@@ -32,11 +32,16 @@ namespace DefaultNamespace
             return new CraftingInventory(craftingInventoryItems);
         }
 
-        private ICraftingFormationFinder GetCraftingFormationFinder()
+        private CraftingManager GetCraftingManager(ICraftingInventory inventory)
         {
             var formationFilter = new NotOwnedFormationFilter();
-
-            return new CraftingFormationFinder(CraftingContext.FormationProvider, formationFilter);
+            var formationFinder = new CraftingFormationFinder(CraftingContext.FormationProvider, formationFilter);
+            
+            var bingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
+            var bingo = new CraftingInventoryNodeBingo();
+            var contractResolver = new CraftingContractResolver(inventory, bingoFormFactory, bingo);
+            
+            return new CraftingManager(inventory, formationFinder, contractResolver);
         }
         
         public void Start()

@@ -27,11 +27,11 @@ namespace Crawler.UI.Tests
         }
 
         [Test]
-        public void When_Awake_Then_ICraftingFormationFinderRegisteredToIocContainer()
+        public void When_Awake_Then_CraftingManagerRegisteredToIocContainer()
         {
             _bootstrapper.Awake();
             
-            Assert.DoesNotThrow(()=> IocContainer.GetSingleton<ICraftingFormationFinder>());
+            Assert.DoesNotThrow(()=> IocContainer.GetSingleton<CraftingManager>());
         }
     }
 }

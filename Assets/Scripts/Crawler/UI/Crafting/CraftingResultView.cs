@@ -12,12 +12,12 @@ namespace Crawler.UI.Crafting
         
         public void ShowResult(ICraftingInventory inventory)
         {
-            var formationFinder = IocContainer.GetSingleton<ICraftingFormationFinder>();
+            var formationFinder = IocContainer.GetSingleton<CraftingManager>();
 
-            var result = formationFinder.Find(inventory);
+            var contracts = formationFinder.TryGetContracts();
 
-            _resultStateText.text = result.Formations.Length != 0 ? "Item ready to be crafted" : "Nothing to craft";
-            _resultStateText.color = result.Formations.Length != 0 ? Color.green : Color.red;
+            _resultStateText.text = contracts.Length != 0 ? "Item ready to be crafted" : "Nothing to craft";
+            _resultStateText.color = contracts.Length != 0 ? Color.green : Color.red;
         }
     }
 }
