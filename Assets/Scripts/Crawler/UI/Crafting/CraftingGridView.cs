@@ -10,14 +10,56 @@ namespace Crawler.UI.Crafting
         
         [SerializeField] 
         private GridLayoutGroup _grid;
+        [SerializeField]
+        private CraftingInventoryItemViewMover _viewMover;
+        
+        [Header("Prefabs")] 
+        [SerializeField] 
+        private GameObject _gridSlotPrefab;
+        [SerializeField] 
+        private CraftingInventoryItemView _itemViewPrefab;
 
+        private const int NotFoundIndex = -1;   
+        
         private GameObject[] _slotInstances;
         private GameObject[] _itemInstances;
         
-        [Header("Prefabs")] 
-        [SerializeField] private GameObject _gridSlotPrefab;
-        [SerializeField] 
-        private CraftingInventoryItemView _itemViewPrefab;
+        public void Awake()
+        {
+            _viewMover.OnSwapped += (fromSlot, toSlot) =>
+            {
+                var fromIndex = IndexOfObject(fromSlot, _slotInstances);
+                var fromCoordinates = GetCoordinates(fromIndex);
+
+                var toSlotIndex = IndexOfObject(toSlot, _slotInstances);
+                var toCoordinates = GetCoordinates(toSlotIndex);
+                
+                OnViewModelMoved?.Invoke(fromCoordinates, toCoordinates);
+            };
+        }
+
+        private int IndexOfObject(GameObject item, GameObject[] collection)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (collection[i] == item)
+                {
+                    return i;
+                }
+            }
+            
+            throw new InvalidOperationException($"{nameof(item)} not found in {nameof(collection)}.");
+        }
+        
+        private (int x, int y) GetCoordinates(int index)
+        {
+            var width = _grid.constraintCount;
+            
+            var tempX = index % width;
+            var tempY = (int) Math.Floor((float)index / width);
+            
+            return (tempX, tempY);
+        }
 
         public void Initialize(int width, int height)
         {
@@ -103,11 +145,9 @@ namespace Crawler.UI.Crafting
         
         private int GetSlotIndex(int x, int y)
         {
-            var lastSlotIndex = _slotInstances.Length - 1;
             var gridWidth = _grid.constraintCount;
-
-            var slotNumber = x + y * gridWidth;
-            return lastSlotIndex - slotNumber;
+            
+            return x + y * gridWidth;
         }
     }
 }

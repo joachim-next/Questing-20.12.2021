@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ namespace Crawler.UI.Crafting
 {
     public class CraftingInventoryItemViewMover : MonoBehaviour
     {
+        public event Action<GameObject, GameObject> OnSwapped;
+        
         [SerializeField] 
         private GraphicRaycaster _raycaster;
         [SerializeField] 
@@ -31,6 +34,7 @@ namespace Crawler.UI.Crafting
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                FireEvent();
                 Reset();
             }
         }
@@ -114,6 +118,47 @@ namespace Crawler.UI.Crafting
             var mousePositionAtGridLevel = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 
                 _selectedViewOrigin.z);
             _selectedView.transform.position = mousePositionAtGridLevel;
+        }
+
+        private void FireEvent()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            var slot = GetSlotUnderMouseOrNull();
+
+            if (slot == null)
+            {
+                return;
+            }
+            
+            OnSwapped?.Invoke(_selectedViewParent.gameObject, slot);
+        }
+
+        private GameObject GetSlotUnderMouseOrNull()
+        {
+            GameObject go = null;
+
+            var pointerEventData = new PointerEventData(_eventSystem);
+            pointerEventData.position = Input.mousePosition;
+
+            var raycastResults = new List<RaycastResult>();
+
+            _raycaster.Raycast(pointerEventData, raycastResults);
+
+            foreach (var result in raycastResults)
+            {
+                if (!result.gameObject.CompareTag("Slot"))
+                {
+                    continue;
+                }
+
+                go = result.gameObject;
+            }
+            
+            return go;
         }
 
         private void Reset()
