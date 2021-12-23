@@ -7,8 +7,7 @@ namespace DefaultNamespace
 {
     public class Bootstrapper : MonoBehaviour
     {
-        [SerializeField] 
-        private CraftingContext _craftingContext;
+        public CraftingContext CraftingContext;
         
         public void Awake()
         {
@@ -39,7 +38,7 @@ namespace DefaultNamespace
             var nodeBingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
             var nodeBingo = new CraftingInventoryNodeBingo();
 
-            return new CraftingFormationFinder(_craftingContext.FormationProvider, formationFilter, 
+            return new CraftingFormationFinder(CraftingContext.FormationProvider, formationFilter, 
                 nodeBingoFormFactory, nodeBingo);
         }
         

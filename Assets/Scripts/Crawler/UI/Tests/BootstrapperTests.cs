@@ -11,7 +11,11 @@ namespace Crawler.UI.Tests
         [SetUp]
         public void Setup()
         {
-            _bootstrapper = new Bootstrapper();
+            var craftingContext = new CraftingContext();
+            _bootstrapper = new Bootstrapper
+            {
+                CraftingContext = craftingContext
+            };
         }
         
         [Test]
