@@ -20,6 +20,10 @@ namespace Crawler.UI.Crafting
             {
                 SelectView();
             }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                Reset();
+            }
         }
 
         private void SelectView()
@@ -59,6 +63,11 @@ namespace Crawler.UI.Crafting
             }
             
             return view;
+        }
+
+        private void Reset()
+        {
+            _selectedView = null;
         }
     }
 }
