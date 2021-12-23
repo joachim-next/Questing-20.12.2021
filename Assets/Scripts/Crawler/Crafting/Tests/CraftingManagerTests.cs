@@ -6,7 +6,7 @@ namespace Crawler.Crafting.Tests
     public class CraftingManagerTests
     {
         [Test]
-        public void Given_PrerequisitesMet_When_TryGetContracts_Then_ReturnsCraftingResultSuccess()
+        public void Given_PrerequisitesMet_When_TryGetContracts_Then_ReturnsContracts()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -27,13 +27,13 @@ namespace Crawler.Crafting.Tests
             
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryGetContracts();
-            
-            Assert.AreEqual(CraftingResult.Success, result);
+            var contracts = craftingManager.TryGetContracts();
+
+            Assert.IsNotEmpty(contracts);
         }
 
         [Test]
-        public void Given_NoFormationsFound_When_TryGetContracts_Then_ReturnsCraftingResultFailed()
+        public void Given_NoFormationsFound_When_TryGetContracts_Then_ReturnsEmptyContracts()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -54,13 +54,13 @@ namespace Crawler.Crafting.Tests
 
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryGetContracts();
+            var contracts = craftingManager.TryGetContracts();
             
-            Assert.AreEqual(CraftingResult.Failed, result);
+            Assert.IsEmpty(contracts);
         }
 
         [Test]
-        public void Given_FormationsNotValid_When_TryGetContracts_Then_ReturnsCraftingResultFailed()
+        public void Given_FormationsNotValid_When_TryGetContracts_Then_ReturnsEmptyContracts()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -81,9 +81,9 @@ namespace Crawler.Crafting.Tests
             
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryGetContracts();
+            var contracts = craftingManager.TryGetContracts();
             
-            Assert.AreEqual(CraftingResult.Failed, result);
+            Assert.IsEmpty(contracts);
         }
     }
 }

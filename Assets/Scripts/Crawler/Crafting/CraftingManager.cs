@@ -14,16 +14,16 @@
             _formationValidator = formationValidator;
         }
         
-        public CraftingResult TryGetContracts()
+        public CraftingContract[] TryGetContracts()
         {
             var findingResult = _formationFinder.Find(_craftingInventory);
             if (!findingResult.Success)
-                return CraftingResult.Failed;
+                return new CraftingContract[0];
 
             if (!_formationValidator.Validate(findingResult.Formations))
-                return CraftingResult.Failed;
+                return new CraftingContract[0];
             
-            return CraftingResult.Success;
+            return new CraftingContract[1];
         }
     }
 }
