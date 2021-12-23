@@ -14,7 +14,7 @@
             _formationValidator = formationValidator;
         }
         
-        public CraftingResult TryCraft()
+        public CraftingResult TryGetContracts()
         {
             var findingResult = _formationFinder.Find(_craftingInventory);
             if (!findingResult.Success)

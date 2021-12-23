@@ -6,7 +6,7 @@ namespace Crawler.Crafting.Tests
     public class CraftingManagerTests
     {
         [Test]
-        public void Given_PrerequisitesMet_When_TryCraft_Then_ReturnsCraftingResultSuccess()
+        public void Given_PrerequisitesMet_When_TryGetContracts_Then_ReturnsCraftingResultSuccess()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -27,13 +27,13 @@ namespace Crawler.Crafting.Tests
             
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryCraft();
+            var result = craftingManager.TryGetContracts();
             
             Assert.AreEqual(CraftingResult.Success, result);
         }
 
         [Test]
-        public void Given_NoFormationsFound_When_TryCraft_Then_ReturnsCraftingResultFailed()
+        public void Given_NoFormationsFound_When_TryGetContracts_Then_ReturnsCraftingResultFailed()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -54,13 +54,13 @@ namespace Crawler.Crafting.Tests
 
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryCraft();
+            var result = craftingManager.TryGetContracts();
             
             Assert.AreEqual(CraftingResult.Failed, result);
         }
 
         [Test]
-        public void Given_FormationsNotValid_When_TryCraft_Then_ReturnsCraftingResultFailed()
+        public void Given_FormationsNotValid_When_TryGetContracts_Then_ReturnsCraftingResultFailed()
         {
             var inventory = Substitute.For<ICraftingInventory>();
             inventory
@@ -81,7 +81,7 @@ namespace Crawler.Crafting.Tests
             
             var craftingManager = new CraftingManager(inventory, formationFinder, formationValidator);
             
-            var result = craftingManager.TryCraft();
+            var result = craftingManager.TryGetContracts();
             
             Assert.AreEqual(CraftingResult.Failed, result);
         }
