@@ -14,6 +14,7 @@ namespace Crawler.UI.Crafting
 
         private CraftingInventoryItemView _selectedView;
         private Vector3 _selectedViewOrigin;
+        private Transform _selectedViewParent;
     
         private void Update()
         {
@@ -21,6 +22,8 @@ namespace Crawler.UI.Crafting
             {
                 SelectView();
                 SaveSelectedViewPosition();
+                SaveSelectedViewParent();
+                ChangeSelectedViewParent();
             }
             else if (Input.GetMouseButton(0))
             {
@@ -81,6 +84,26 @@ namespace Crawler.UI.Crafting
             _selectedViewOrigin = _selectedView.transform.position;
         }
 
+        private void SaveSelectedViewParent()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            _selectedViewParent = _selectedView.transform.parent;
+        }
+
+        private void ChangeSelectedViewParent()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            _selectedView.transform.SetParent(transform);
+        }
+
         private void MoveSelectedView()
         {
             if (_selectedView == null)
@@ -101,6 +124,7 @@ namespace Crawler.UI.Crafting
             }
             
             _selectedView.transform.position = _selectedViewOrigin;
+            _selectedView.transform.SetParent(_selectedViewParent);
             _selectedView = null;
         }
     }
