@@ -1,4 +1,5 @@
 using Crawler.Crafting;
+using Crawler.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,9 @@ namespace DefaultNamespace
 {
     public class Bootstrapper : MonoBehaviour
     {
+        [SerializeField] 
+        private CraftingContext _craftingContext;
+        
         public void Awake()
         {
             var craftingInventory = GetCraftingInventory();
@@ -31,12 +35,12 @@ namespace DefaultNamespace
 
         private ICraftingFormationFinder GetCraftingFormationFinder()
         {
-            var formationProvider = new HardCodedFormationProvider();
             var formationFilter = new NotOwnedFormationFilter();
             var nodeBingoFormFactory = new CraftingInventoryNodeBingoFormFactory();
             var nodeBingo = new CraftingInventoryNodeBingo();
 
-            return new CraftingFormationFinder(formationProvider, formationFilter, nodeBingoFormFactory, nodeBingo);
+            return new CraftingFormationFinder(_craftingContext.FormationProvider, formationFilter, 
+                nodeBingoFormFactory, nodeBingo);
         }
         
         public void Start()
